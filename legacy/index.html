@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>NYAKAJU | HOME</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-container": "#32333e",
+                      "surface": "#f9f9f9",
+                      "tertiary-container": "#9b9ba9",
+                      "on-primary-fixed-variant": "#4f4635",
+                      "primary-container": "#a79b86",
+                      "surface-variant": "#e2e2e2",
+                      "surface-container": "#eeeeee",
+                      "on-secondary-fixed": "#1b1b1b",
+                      "surface-dim": "#dadada",
+                      "secondary-fixed-dim": "#c6c6c6",
+                      "primary": "#675d4b",
+                      "inverse-primary": "#d2c5ae",
+                      "tertiary": "#5d5d6a",
+                      "surface-container-low": "#f3f3f3",
+                      "tertiary-fixed-dim": "#c6c5d4",
+                      "outline": "#7d766d",
+                      "background": "#f9f9f9",
+                      "surface-container-highest": "#e2e2e2",
+                      "on-error": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "on-background": "#1a1c1c",
+                      "on-tertiary-fixed": "#1a1b25",
+                      "on-secondary-fixed-variant": "#474747",
+                      "secondary": "#5e5e5e",
+                      "error-container": "#ffdad6",
+                      "on-error-container": "#93000a",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-tint": "#675d4b",
+                      "surface-container-high": "#e8e8e8",
+                      "secondary-fixed": "#e2e2e2",
+                      "primary-fixed": "#efe1c9",
+                      "inverse-on-surface": "#f1f1f1",
+                      "secondary-container": "#e2e2e2",
+                      "primary-fixed-dim": "#d2c5ae",
+                      "surface-bright": "#f9f9f9",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-container": "#3b3323",
+                      "on-tertiary-fixed-variant": "#454652",
+                      "on-surface": "#1a1c1c",
+                      "on-secondary-container": "#646464",
+                      "inverse-surface": "#2f3131",
+                      "on-secondary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "on-surface-variant": "#4b463e",
+                      "tertiary-fixed": "#e2e1f0",
+                      "outline-variant": "#cec5ba",
+                      "on-primary-fixed": "#211b0c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "margin-desktop": "64px",
+                      "margin-mobile": "20px",
+                      "gutter": "24px",
+                      "container-max": "1440px",
+                      "section-gap": "120px"
+              },
+              "fontFamily": {
+                      "body-md": ["Montserrat"],
+                      "display-xl": ["Montserrat"],
+                      "display-lg-mobile": ["Montserrat"],
+                      "display-lg": ["Montserrat"],
+                      "headline-lg-mobile": ["Montserrat"],
+                      "body-lg": ["Montserrat"],
+                      "headline-lg": ["Montserrat"],
+                      "label-lg": ["Montserrat"],
+                      "label-sm": ["Montserrat"],
+                      "headline-md": ["Montserrat"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                      "display-xl": ["80px", {"lineHeight": "96px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "display-lg-mobile": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400"}],
+                      "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "headline-md": ["32px", {"lineHeight": "40px", "letterSpacing": "0em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .slideshow-container > div {
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            position: absolute;
+            inset: 0;
+        }
+        .slideshow-container > div.active {
+            opacity: 1;
+            z-index: 10;
+        }
+        .text-overlay-mask {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.6) 100%);
+        }
+        .glass-nav {
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .custom-shadow {
+            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+        }
+        @media (max-width: 767px) {
+            #home {
+                min-height: 760px;
+                height: 100svh;
+            }
+            #hero-bar {
+                width: calc(100% - 2rem);
+                bottom: 1rem;
+                border-radius: 1.5rem;
+                padding: 0.5rem;
+            }
+            #hero-bar .availability-field {
+                width: 100%;
+                padding: 0.25rem 0.625rem;
+                border-right: 0;
+                border-bottom: 1px solid var(--color-surface-variant, #ded8cf);
+                border-radius: 1rem;
+            }
+            #hero-bar .availability-field > div,
+            #hero-bar input[type="date"] {
+                width: 100%;
+                min-width: 0;
+            }
+            #hero-bar .guest-controls {
+                justify-content: space-between;
+                gap: 1rem;
+            }
+            #hero-bar .guest-controls > div {
+                flex: 1;
+                min-width: 0;
+            }
+            #hero-bar .guest-controls select {
+                min-height: 2rem;
+            }
+            #hero-bar .availability-action {
+                padding: 0.375rem 0 0;
+            }
+            #check-availability-btn {
+                display: block;
+                width: 100%;
+                padding: 0.75rem 1.125rem;
+                border-radius: 1rem;
+                text-align: center;
+            }
+        }
+        .reveal {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.9s ease, transform 0.9s ease;
+        }
+        html.reveal-enhanced .reveal:not(.reveal-visible) {
+            opacity: 0;
+            transform: translateY(32px);
+        }
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal[data-reveal-delay] {
+            transition-delay: var(--reveal-delay);
+        }
+        .reveal[data-reveal-delay] {
+            --reveal-delay: 0s;
+        }
+        #main-header.nav-scrolled { background-color: #ffffff; }
+        #main-header.nav-scrolled nav a { color: #a79b86 !important; border-color: #a79b86 !important; }
+        #main-header.nav-scrolled nav a:hover { color: #000000 !important; border-color: #000000 !important; }
+        #main-header.nav-scrolled .book-now-btn { color: #ffffff !important; }
+        #main-header.nav-scrolled [data-mobile-menu-toggle] { color: #1a1c1c; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container">
+
+    <!-- TopNavBar -->
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" id="main-header">
+<nav class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto relative">
+    <div class="flex-shrink-0">
+       <a href="index.html">
+            <img alt="The Nyakaju Logo" class="h-6 md:h-8 w-auto brightness-0 invert opacity-90 transition-all duration-300" id="header-logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVKM6L1uOBsBdOrbb4iC920XqVdLrSdU7_Vem3z88UUcxxv9C-KW2bL-84jrKqzcaFWVXVimaUefMb1YIfDM6Doomv2Y1SkDefemjaD1t4dyGcvDhWH1F1Ku1llTmm_E_gXYvhJxwUapnt7i15gRHGxX9xoQ5jxsuvSQl6XDdcdtKf_K9o4dWFUJgsvhgRg1qmu3Cf3JRauofGWI4zY06ZGKWgW3pbC7nmkJ0YQY-2PYojrdIHIOusCY_NOHjxUS92WepSqRCKjw">
+        </a>
+        </div>
+        <div class="hidden md:flex gap-10 items-center absolute left-1/2 -translate-x-1/2">
+        <a class="font-label-lg text-label-lg uppercase tracking-widest text-white hover:text-primary border-b-2 border-white hover:border-primary pb-1 transition-colors duration-300" href="index.html">Home</a>
+
+        <a class="font-label-lg text-label-lg uppercase tracking-widest text-white hover:text-primary transition-colors duration-300" href="rooms.html">Rooms</a>
+        <a class="font-label-lg text-label-lg uppercase tracking-widest text-white hover:text-primary transition-colors duration-300" href="gallery.html">Gallery</a>
+        <a class="font-label-lg text-label-lg uppercase tracking-widest text-white hover:text-primary transition-colors duration-300" href="about.html">About</a>
+        <a class="font-label-lg text-label-lg uppercase tracking-widest text-white hover:text-primary transition-colors duration-300" href="contact us.html">Contact</a>
+        </div>
+        <div class="flex items-center gap-4">
+        <a href="rooms.html" class="book-now-btn hidden md:flex items-center gap-2 bg-on-background text-surface px-8 py-3 rounded-full font-label-lg text-label-lg uppercase tracking-widest transition-transform duration-500 hover:scale-105 active:scale-95">
+                            Book now
+        </a>
+        <button type="button" class="md:hidden inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/50 text-white transition-colors duration-300" aria-controls="mobile-navigation" aria-expanded="false" aria-label="Open navigation menu" data-mobile-menu-toggle>
+            <span class="material-symbols-outlined text-[26px]" data-mobile-menu-icon>menu</span>
+        </button>
+    </div>
+    <nav id="mobile-navigation" class="hidden md:hidden absolute top-full left-0 right-0 bg-surface-container-lowest border-t border-outline-variant shadow-xl px-margin-mobile py-4" data-mobile-menu>
+        <div class="flex flex-col">
+            <a class="font-label-lg text-label-lg uppercase tracking-widest text-primary border-b border-outline-variant py-3 hover:text-black transition-colors duration-300" href="index.html">Home</a>
+            <a class="font-label-lg text-label-lg uppercase tracking-widest text-primary border-b border-outline-variant py-3 hover:text-black transition-colors duration-300" href="rooms.html">Rooms</a>
+            <a class="font-label-lg text-label-lg uppercase tracking-widest text-primary border-b border-outline-variant py-3 hover:text-black transition-colors duration-300" href="gallery.html">Gallery</a>
+            <a class="font-label-lg text-label-lg uppercase tracking-widest text-primary border-b border-outline-variant py-3 hover:text-black transition-colors duration-300" href="about.html">About</a>
+            <a class="font-label-lg text-label-lg uppercase tracking-widest text-primary py-3 hover:text-black transition-colors duration-300" href="contact us.html">Contact</a>
+            <a class="book-now-btn mt-3 flex items-center justify-center bg-on-background text-surface px-6 py-3 rounded-full font-label-lg text-label-lg uppercase tracking-widest" href="rooms.html">Book now</a>
+        </div>
+    </nav>
+</nav>
+</header>
+
+<!-- Hero Section -->
+<section class="relative h-screen w-full overflow-hidden" id="home">
+<div class="slideshow-container h-full w-full">
+<!-- Slide 1 -->
+<div class="active">
+<img class="w-full h-full object-cover object-center" alt="A sweeping wide-angle shot of a majestic luxury resort nestled in a lush, tropical forest during golden hour. The architecture is organic and minimalist, featuring expansive glass walls and natural wood finishes. Warm, amber sunlight filters through palm leaves, creating long shadows across a pristine stone patio. The atmosphere is quiet, serene, and deeply connected to nature."
+ src="/media/home_slides/slide_1-1280.webp"
+ srcset="/media/home_slides/slide_1-768.webp 768w, /media/home_slides/slide_1-1280.webp 1280w, /media/home_slides/slide_1-1920.webp 1920w"
+ sizes="100vw" width="1920" height="1280" fetchpriority="high" decoding="async">
+</div>
+<!-- Slide 2 -->
+<div class="">
+<img class="w-full h-full object-cover object-center" alt="An intimate close-up of a luxury resort suite interior at dawn. Soft, ethereal blue morning light illuminates a plush king-sized bed with crisp white linens. Large floor-to-ceiling windows offer a view of a misty mountain range in the distance. The room features textured clay walls and minimalist brass fixtures, embodying quiet luxury and sophisticated comfort."
+ data-src="/media/home_slides/slide_2-1280.webp" data-srcset="/media/home_slides/slide_2-768.webp 768w, /media/home_slides/slide_2-1280.webp 1280w, /media/home_slides/slide_2-1920.webp 1920w" data-sizes="100vw" width="1920" height="1280" decoding="async">
+</div>
+<!-- Slide 3 -->
+<div class="">
+<img class="w-full h-full object-cover object-center" alt="An expansive infinity pool that seems to merge seamlessly with the crystal-clear ocean beyond under a mid-day sun. The water is a vibrant turquoise, reflecting the cloudless sky. Minimalist white lounge chairs are perfectly aligned on a light-colored travertine deck. High-key lighting emphasizes the pristine, airy aesthetic of this exclusive coastal retreat."
+ data-src="/media/home_slides/slide_3-1280.webp" data-srcset="/media/home_slides/slide_3-768.webp 768w, /media/home_slides/slide_3-1280.webp 1280w, /media/home_slides/slide_3-1920.webp 1920w" data-sizes="100vw" width="1920" height="1280" decoding="async">
+</div>
+<!-- Slide 4 -->
+<div class="">
+<img class="w-full h-full object-cover object-center" alt="A gourmet dining terrace set against a dramatic volcanic cliffside at twilight. Elegant tables are set with fine white porcelain and flickering candles under a canopy of stars. The mood is romantic and exclusive, with deep shadows contrasted by the warm glow of subtle outdoor lighting. The overall style is editorial, sophisticated, and high-fashion."
+ data-src="/media/home_slides/slide_4-1280.webp" data-srcset="/media/home_slides/slide_4-768.webp 768w, /media/home_slides/slide_4-1280.webp 1280w, /media/home_slides/slide_4-1920.webp 1920w" data-sizes="100vw" width="1920" height="1280" decoding="async">
+</div>
+<!-- Slide 5 -->
+<div class="">
+<img class="w-full h-full object-cover object-center" alt="A holistic spa sanctuary featuring a private outdoor rain shower made of dark volcanic stone. Water cascades gracefully amidst tropical ferns and moss-covered rocks. The lighting is low-key and atmospheric, creating a moody, meditative environment. Natural textures of stone and water dominate the composition, evoking a sense of profound tranquility."
+ data-src="/media/home_slides/slide_5-1280.webp" data-srcset="/media/home_slides/slide_5-768.webp 768w, /media/home_slides/slide_5-1280.webp 1280w, /media/home_slides/slide_5-1920.webp 1920w" data-sizes="100vw" width="1920" height="1280" decoding="async">
+</div>
+<!-- Additional Slides (6-10) for effect -->
+<div class=""><img class="w-full h-full object-cover object-center" alt="Aerial view of a secluded beach villa with a private jetty stretching into emerald waters. The villa features a thatched roof and open-plan living spaces. The surrounding environment is untouched, pristine jungle. The color palette is dominated by deep greens and bright teals, showcasing a luxury escape far from the world." data-src="/media/home_slides/slide_6-1280.webp" data-srcset="/media/home_slides/slide_6-768.webp 768w, /media/home_slides/slide_6-1280.webp 1280w, /media/home_slides/slide_6-1920.webp 1920w" data-sizes="100vw" width="1920" height="1280" decoding="async"></div>
+<div class=""><img class="w-full h-full object-cover object-center" alt="A minimalist architectural detail of the resort's lobby, showcasing the play of light and shadow on curved white plaster walls. A single, large sculptural ceramic vase sits on the floor. The composition is highly structured and clean, following a strict grid. The vibe is quiet luxury and artistic sophistication." data-src="/media/home_slides/slide_7-1280.webp" data-srcset="/media/home_slides/slide_7-768.webp 768w, /media/home_slides/slide_7-1280.webp 1280w, /media/home_slides/slide_7-1920.webp 1920w" data-sizes="100vw" width="1920" height="1280" decoding="async"></div>
+<div class=""><img class="w-full h-full object-cover object-center" alt="A lush private courtyard at night, illuminated by hidden lanterns that cast soft patterns on sand-colored paths. A small, tranquil koi pond sits in the center. The surrounding architecture is low-slung and unobtrusive. The mood is peaceful and evokes an atmosphere of ancient, timeless luxury and calm." data-src="/media/home_slides/slide_8-1280.webp" data-srcset="/media/home_slides/slide_8-768.webp 768w, /media/home_slides/slide_8-1280.webp 1280w, /media/home_slides/slide_8-1920.webp 1920w" data-sizes="100vw" width="1920" height="1280" decoding="async"></div>
+<div class=""><img class="w-full h-full object-cover object-center" alt="A modern living space within a penthouse suite, featuring a large neutral-toned sectional sofa and a bespoke marble coffee table. Huge windows frame a panoramic view of a tropical coastline. The lighting is soft and ambient, highlighting the premium natural materials used throughout the space. The aesthetic is curated and high-end." data-src="/media/home_slides/slide_9-1280.webp" data-srcset="/media/home_slides/slide_9-768.webp 768w, /media/home_slides/slide_9-1280.webp 1280w, /media/home_slides/slide_9-1920.webp 1920w" data-sizes="100vw" width="1920" height="1280" decoding="async"></div>
+<div class=""><img class="w-full h-full object-cover object-center" alt="The resort's main entrance walkway at sunset, lined with tall palm trees and minimalist water features. The sky is a gradient of violet and gold. The path is paved with light-colored stones, leading toward a warm, inviting glow from the lobby. The visual narrative is one of arrival, exclusivity, and serene beauty." data-src="/media/home_slides/slide_10-1280.webp" data-srcset="/media/home_slides/slide_10-768.webp 768w, /media/home_slides/slide_10-1280.webp 1280w, /media/home_slides/slide_10-1920.webp 1920w" data-sizes="100vw" width="1920" height="1280" decoding="async"></div>
+</div>
+<div class="absolute inset-0 z-20 text-overlay-mask flex flex-col items-center text-center px-6">
+
+
+
+
+<!-- Availability Bar -->
+<div class="w-full max-w-4xl bg-surface p-2 rounded-full flex flex-col md:flex-row items-stretch md:items-center custom-shadow transition-all duration-1000 delay-900 opacity-100 translate-y-0 absolute bottom-12 left-1/2 -translate-x-1/2 mx-auto" id="hero-bar">
+<div class="availability-field flex-1 flex px-2 py-0.5 border-r border-surface-variant hover:bg-surface-container-low transition-colors rounded-l-full cursor-pointer group">
+<div class="text-left">
+<label class="block font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Arrival</label>
+<input id="arrival-date" class="font-body-md text-body-md font-semibold bg-transparent border-0 p-0 m-0 focus:outline-none focus:ring-0" type="date" aria-label="Select arrival date">
+</div>
+</div>
+<div class="availability-field flex-1 flex px-2 py-0.5 border-r border-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="text-left">
+<label class="block font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Departure</label>
+<input id="departure-date" class="font-body-md text-body-md font-semibold bg-transparent border-0 p-0 m-0 focus:outline-none focus:ring-0" type="date" aria-label="Select departure date">
+</div>
+</div>
+<div class="availability-field flex-1 flex px-2 py-0.5 border-r border-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="text-left">
+<label class="block font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Guests</label>
+<div class="guest-controls flex items-center gap-4">
+<div class="flex items-center gap-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="adults-count">Adults</label>
+<select id="adults-count" class="font-body-md text-body-md font-semibold bg-transparent border-0 p-0 m-0 pr-10 focus:outline-none focus:ring-0" aria-label="Select number of adults">
+<option value="1" selected>1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+</select>
+</div>
+<div class="flex items-center gap-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant" for="children-count">Children</label>
+<select id="children-count" class="font-body-md text-body-md font-semibold bg-transparent border-0 p-0 m-0 pr-10 focus:outline-none focus:ring-0" aria-label="Select number of children">
+<option value="0" selected>0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+<div class="availability-action p-1">
+    <a id="check-availability-btn" href="rooms.html" class="h-full bg-on-background text-surface px-6 py-2 rounded-full font-label-lg text-label-lg uppercase tracking-widest transition-all hover:bg-primary inline-block">
+                            Check Availability
+    </a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Rooms Section -->
+<section class="py-section-gap px-margin-desktop max-w-container-max mx-auto overflow-hidden" id="rooms">
+<div class="flex flex-col items-center mb-20 text-center">
+<div class="w-12 h-12 bg-primary-container rounded-full flex items-center justify-center mb-6 reveal" data-reveal-delay="0.1s">
+<span class="material-symbols-outlined text-surface" style="font-variation-settings: &quot;FILL&quot; 1;">diamond</span>
+</div>
+<h2 class="font-display-lg text-display-lg text-on-surface mb-4 reveal" data-reveal-delay="0.15s">Available Rooms &amp; Suites</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl reveal" data-reveal-delay="0.2s">Each space is a masterpiece of architectural design, blending local textures with modern sophistication.</p>
+</div>
+<div id="homepageRoomsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Deluxe Suite -->
+<a href="rooms.html#deluxe-suite" class="group block reveal" data-reveal-delay="0.25s">
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden custom-shadow transition-transform duration-150 group-hover:-translate-y-2">
+<div class="relative aspect-[4/3] overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-200 group-hover:scale-110" alt="A minimalist deluxe suite at the Vanya luxury resort. The room features high ceilings, a king-sized bed with taupe linen, and huge windows revealing a tropical garden. Soft, natural lighting highlights the matte-finished wood flooring and textured cream walls. The overall mood is peaceful and high-end editorial style." src="/media/room_images/delux_bed-768.webp" srcset="/media/room_images/delux_bed-768.webp 768w, /media/room_images/delux_bed-1280.webp 1280w, /media/room_images/delux_bed-1920.webp 1920w" sizes="(min-width: 768px) 33vw, 100vw" width="1920" height="1280" loading="lazy" decoding="async">
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-md px-4 py-2 rounded-full">
+<span class="font-label-lg text-label-lg text-on-surface"><strong>$100</strong>/night</span>
+</div>
+</div>
+<div class="p-8">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6">Deluxe Suite</h3>
+<div class="flex flex-wrap gap-4 mb-8 text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">king_bed</span>
+<span class="font-label-sm text-label-sm">1 Bed</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">bathtub</span>
+<span class="font-label-sm text-label-sm">1 Bathroom</span>
+</div>
+
+</div>
+
+</div>
+</div>
+</a>
+<!-- Royal Suite -->
+<a href="rooms.html#royal-suite" class="group block reveal" data-reveal-delay="0.3s">
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden custom-shadow transition-transform duration-150 group-hover:-translate-y-2">
+<div class="relative aspect-[4/3] overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-200 group-hover:scale-110" alt="The grand interior of the Royal Suite at Vanya resort during night time. Low-level ambient lighting illuminates a sophisticated living area with bespoke furniture and a private terrace overlooking city lights. The aesthetic is extremely opulent yet understated, utilizing a palette of deep charcoal and warm gold. Photography is cinematic and moody." src="/media/room_images/royal_bed-768.webp" srcset="/media/room_images/royal_bed-768.webp 768w, /media/room_images/royal_bed-1280.webp 1280w, /media/room_images/royal_bed-1920.webp 1920w" sizes="(min-width: 768px) 33vw, 100vw" width="1920" height="1280" loading="lazy" decoding="async">
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-md px-4 py-2 rounded-full">
+<span class="font-label-lg text-label-lg text-on-surface"><strong>$120</strong>/night</span>
+</div>
+</div>
+<div class="p-8">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6">Royal Suite</h3>
+<div class="flex flex-wrap gap-4 mb-8 text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">king_bed</span>
+<span class="font-label-sm text-label-sm">1 Bed</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">bathtub</span>
+<span class="font-label-sm text-label-sm">1 Bathroom</span>
+</div>
+
+</div>
+
+</div>
+</div>
+</a>
+<!-- Elite Suite -->
+<a href="rooms.html#elite-suite" class="group block reveal" data-reveal-delay="0.35s">
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden custom-shadow transition-transform duration-150 group-hover:-translate-y-2">
+<div class="relative aspect-[4/3] overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-200 group-hover:scale-110" alt="An Elite Chamber room featuring a dramatic floor-to-ceiling glass corner overlooking the ocean. The room is modern and airy, with minimalist cabinetry and a monochromatic color scheme. Subtle warm lighting glows from recessed shelves. The mood is one of absolute seclusion and architectural perfection in a luxury resort setting." src="/media/room_images/elite_alt-768.webp" srcset="/media/room_images/elite_alt-768.webp 768w, /media/room_images/elite_alt-1280.webp 1280w, /media/room_images/elite_alt-1920.webp 1920w" sizes="(min-width: 768px) 33vw, 100vw" width="1920" height="1280" loading="lazy" decoding="async">
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-md px-4 py-2 rounded-full">
+<span class="font-label-lg text-label-lg text-on-surface"><strong>$150</strong>/night</span>
+</div>
+</div>
+<div class="p-8">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6">Elite Suite</h3>
+<div class="flex flex-wrap gap-4 mb-8 text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">king_bed</span>
+<span class="font-label-sm text-label-sm">1 Bed</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">bathtub</span>
+<span class="font-label-sm text-label-sm">1 Bathroom</span>
+</div>
+
+</div>
+
+</div>
+</div>
+</a>
+</div>
+<div class="mt-20 flex items-center justify-between border-t border-surface-variant pt-12">
+<div class="w-full max-w-md h-1 bg-surface-variant rounded-full relative">
+<div class="absolute top-0 left-0 w-1/3 h-full bg-primary rounded-full transition-all duration-500"></div>
+</div>
+<div class="flex gap-4">
+<button class="w-12 h-12 rounded-full border border-outline flex items-center justify-center hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<button class="w-12 h-12 rounded-full border border-outline flex items-center justify-center hover:bg-on-background hover:text-surface transition-colors">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Amenities Section -->
+<section class="py-section-gap px-margin-desktop bg-surface-container-low" id="gallery">
+<div class="max-w-container-max mx-auto">
+<div class="flex flex-col items-center mb-20 text-center">
+<div class="w-12 h-12 bg-primary-container rounded-full flex items-center justify-center mb-6 reveal" data-reveal-delay="0.1s">
+<span class="material-symbols-outlined text-surface" style="font-variation-settings: &quot;FILL&quot; 1;">spa</span>
+</div>
+<h2 class="font-display-lg text-display-lg text-on-surface mb-4 reveal" data-reveal-delay="0.15s">Enjoy Premium Amenities</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl reveal" data-reveal-delay="0.2s">Indulge in our world-class facilities designed for your ultimate relaxation and rejuvenation.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Luxury Room -->
+<div class="bg-surface-container-lowest text-on-surface p-10 rounded-xl flex flex-col justify-between group transition-all duration-500 hover:bg-[#2D2A26] hover:text-surface hover:shadow-xl hover:scale-[1.02] reveal" data-reveal-delay="0.25s">
+<div>
+<div class="flex justify-between items-start mb-12">
+<div class="w-14 h-14 bg-primary-fixed group-hover:bg-surface-container-highest/20 backdrop-blur-md rounded-full flex items-center justify-center transition-colors duration-500">
+<span class="material-symbols-outlined text-[28px] text-primary group-hover:text-surface transition-colors duration-500">bed</span>
+</div>
+<svg class="w-24 h-12 opacity-30 text-primary group-hover:text-surface group-hover:opacity-60 transition-all duration-500" viewBox="0 0 100 20">
+<path d="M0 10 Q 12.5 0 25 10 T 50 10 T 75 10 T 100 10" fill="none" stroke="currentColor" stroke-width="2"></path>
+</svg>
+</div>
+<h3 class="font-headline-md text-headline-md mb-4">Luxury Room</h3>
+<p class="font-body-md text-body-md opacity-70">Enjoy top-tier concierge, 24/7 room service, and curated experiences tailored to your comfort.</p>
+</div>
+</div>
+<!-- Swimming Pool -->
+<div class="bg-surface-container-lowest text-on-surface p-10 rounded-xl flex flex-col justify-between group transition-all duration-500 hover:bg-[#2D2A26] hover:text-surface hover:shadow-xl hover:scale-[1.02] reveal" data-reveal-delay="0.3s">
+<div>
+<div class="w-14 h-14 bg-primary-fixed group-hover:bg-surface-container-highest/20 rounded-full flex items-center justify-center mb-12 transition-colors duration-500">
+<span class="material-symbols-outlined text-[28px] text-primary group-hover:text-surface transition-colors duration-500">pool</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-surface mb-4 transition-colors duration-500">Swimming Pool</h3>
+<p class="font-body-md text-body-md text-on-surface-variant group-hover:text-surface transition-colors duration-500">Unwind at our serene poolside lounge or take a refreshing dip in our temperature-controlled pool.</p>
+</div>
+</div>
+<!-- Food & Restaurants -->
+<div class="bg-surface-container-lowest text-on-surface p-10 rounded-xl flex flex-col justify-between group transition-all duration-500 hover:bg-[#2D2A26] hover:text-surface hover:shadow-xl hover:scale-[1.02] reveal" data-reveal-delay="0.35s">
+<div>
+<div class="w-14 h-14 bg-primary-fixed group-hover:bg-surface-container-highest/20 rounded-full flex items-center justify-center mb-12 transition-colors duration-500">
+<span class="material-symbols-outlined text-[28px] text-primary group-hover:text-surface transition-colors duration-500">restaurant</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-surface mb-4 transition-colors duration-500">Food &amp; Restaurants</h3>
+<p class="font-body-md text-body-md text-on-surface-variant group-hover:text-surface transition-colors duration-500">Savor gourmet cuisine crafted by expert chefs in elegant dining spaces or from the comfort of your room.</p>
+</div>
+</div>
+<!-- Transportation -->
+<div class="bg-surface-container-lowest text-on-surface p-10 rounded-xl flex flex-col justify-between group transition-all duration-500 hover:bg-[#2D2A26] hover:text-surface hover:shadow-xl hover:scale-[1.02] reveal" data-reveal-delay="0.4s">
+<div>
+<div class="w-14 h-14 bg-primary-fixed group-hover:bg-surface-container-highest/20 rounded-full flex items-center justify-center mb-12 transition-colors duration-500">
+<span class="material-symbols-outlined text-[28px] text-primary group-hover:text-surface transition-colors duration-500">directions_bus</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-surface mb-4 transition-colors duration-500">Transportation</h3>
+<p class="font-body-md text-body-md text-on-surface-variant group-hover:text-surface transition-colors duration-500">Seamless travel with private airport transfers, chauffeur services, and local transport options.</p>
+</div>
+</div>
+<!-- Spa Treatments -->
+<div class="bg-surface-container-lowest text-on-surface p-10 rounded-xl flex flex-col justify-between group transition-all duration-500 hover:bg-[#2D2A26] hover:text-surface hover:shadow-xl hover:scale-[1.02] reveal" data-reveal-delay="0.45s">
+<div>
+<div class="w-14 h-14 bg-primary-fixed group-hover:bg-surface-container-highest/20 rounded-full flex items-center justify-center mb-12 transition-colors duration-500">
+<span class="material-symbols-outlined text-[28px] text-primary group-hover:text-surface transition-colors duration-500">spa</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-surface mb-4 transition-colors duration-500">Spa Treatments</h3>
+<p class="font-body-md text-body-md text-on-surface-variant group-hover:text-surface transition-colors duration-500">Rejuvenate with personalized spa therapies, massage rituals, and holistic wellness programs.</p>
+</div>
+</div>
+<!-- Jacuzzi -->
+<div class="bg-surface-container-lowest text-on-surface p-10 rounded-xl flex flex-col justify-between group transition-all duration-500 hover:bg-[#2D2A26] hover:text-surface hover:shadow-xl hover:scale-[1.02] reveal" data-reveal-delay="0.5s">
+<div>
+<div class="w-14 h-14 bg-primary-fixed group-hover:bg-surface-container-highest/20 rounded-full flex items-center justify-center mb-12 transition-colors duration-500">
+<span class="material-symbols-outlined text-[28px] text-primary group-hover:text-surface transition-colors duration-500">hot_tub</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-surface mb-4 transition-colors duration-500">Jacuzzi</h3>
+<p class="font-body-md text-body-md text-on-surface-variant group-hover:text-surface transition-colors duration-500">Relax in style with our in-room or rooftop jacuzzis, offering the perfect escape with stunning views.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-dim pt-section-gap pb-12">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-24 justify-items-center">
+<div class="col-span-1 md:col-span-1 flex flex-col items-center text-center">
+<a href="index.html">
+<img alt="Nyakaju Footer Logo" class="h-10 w-auto mb-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVKM6L1uOBsBdOrbb4iC920XqVdLrSdU7_Vem3z88UUcxxv9C-KW2bL-84jrKqzcaFWVXVimaUefMb1YIfDM6Doomv2Y1SkDefemjaD1t4dyGcvDhWH1F1Ku1llTmm_E_gXYvhJxwUapnt7i15gRHGxX9xoQ5jxsuvSQl6XDdcdtKf_K9o4dWFUJgsvhgRg1qmu3Cf3JRauofGWI4zY06ZGKWgW3pbC7nmkJ0YQY-2PYojrdIHIOusCY_NOHjxUS92WepSqRCKjw" loading="lazy" decoding="async">
+</a>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 max-w-xs">
+                        Defining a new era of luxury travel where nature meets architectural brilliance.
+                    </p>
+</div>
+<div class="col-span-1 text-center">
+<h4 class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface mb-8">Quick Links</h4>
+<ul class="flex flex-wrap justify-center gap-4">
+<li><a class="w-10 h-10 rounded-full border border-outline flex items-center justify-center hover:bg-primary hover:text-surface hover:border-primary transition-all duration-300" href="#" aria-label="Instagram">
+<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<rect x="3" y="3" width="18" height="18" rx="5"></rect>
+<circle cx="12" cy="12" r="4.5"></circle>
+<circle cx="17.5" cy="6.5" r="1"></circle>
+</svg>
+</a></li>
+<li><a class="w-10 h-10 rounded-full border border-outline flex items-center justify-center hover:bg-primary hover:text-surface hover:border-primary transition-all duration-300" href="#" aria-label="TikTok">
+<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+<path d="M14.5 3c.2 2 1.3 3.6 3 4.7V8.8c-1.2-.2-2.3-.7-3.3-1.4v5.2c0 3.2-2.6 5.8-5.8 5.8S2.6 16.8 2.6 13.6s2.6-5.8 5.8-5.8c.3 0 .7 0 1 .1v2.8c-.3-.1-.6-.1-.9-.1-1.6 0-2.9 1.3-2.9 2.9s1.3 2.9 2.9 2.9 2.9-1.3 2.9-2.9V3h2.2Z"></path>
+</svg>
+</a></li>
+<li><a class="w-10 h-10 rounded-full border border-outline flex items-center justify-center hover:bg-primary hover:text-surface hover:border-primary transition-all duration-300" href="#" aria-label="LinkedIn">
+<svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+<path d="M6.94 8.5A1.56 1.56 0 1 0 6.94 5.38a1.56 1.56 0 0 0 0 3.12ZM5.5 9.75h2.88V18H5.5zM10.4 9.75h2.76v1.12h.04c.38-.72 1.32-1.48 2.72-1.48 2.9 0 3.44 1.91 3.44 4.39V18H16.9v-7.44c0-1.77-.03-4.04-2.46-4.04-2.47 0-2.85 1.93-2.85 3.92V18H10.4z"></path>
+</svg>
+</a></li>
+</ul>
+</div>
+<div class="col-span-1 flex flex-col items-center text-center">
+<h4 class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface mb-8">Contact Us</h4>
+<ul class="space-y-4 flex flex-col items-center">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]">mail</span>
+<span class="font-body-md text-body-md text-on-surface-variant">stay@vanyaresort.com</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]">call</span>
+<span class="font-body-md text-body-md text-on-surface-variant">+1 (234) 567 890</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]">location_on</span>
+<span class="font-body-md text-body-md text-on-surface-variant">123 Serenity Bay,<br>Coastline Drive, Luxury Isle</span>
+</li>
+</ul>
+</div>
+
+</div>
+</div>
+</footer>
+<script>
+        // Hero Slideshow Logic
+        const slides = document.querySelectorAll('.slideshow-container > div');
+        let currentSlide = 0;
+        
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        
+        setInterval(nextSlide, 5000);
+
+        // Keep arrival/departure dates in a valid range.
+        const arrivalDateInput = document.getElementById('arrival-date');
+        const departureDateInput = document.getElementById('departure-date');
+        const checkAvailabilityBtn = document.getElementById('check-availability-btn');
+
+        if (arrivalDateInput && departureDateInput) {
+            // Use local date to avoid timezone shifts from UTC formatting.
+            const now = new Date();
+            const today = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
+                .toISOString()
+                .split('T')[0];
+
+            arrivalDateInput.min = today;
+            if (arrivalDateInput.value && arrivalDateInput.value < today) {
+                arrivalDateInput.value = today;
+            }
+
+            departureDateInput.min = arrivalDateInput.value || today;
+            if (departureDateInput.value && departureDateInput.value < departureDateInput.min) {
+                departureDateInput.value = departureDateInput.min;
+            }
+
+            arrivalDateInput.addEventListener('change', () => {
+                departureDateInput.min = arrivalDateInput.value;
+                if (departureDateInput.value && departureDateInput.value < arrivalDateInput.value) {
+                    departureDateInput.value = arrivalDateInput.value;
+                }
+            });
+
+            departureDateInput.addEventListener('change', () => {
+                arrivalDateInput.max = departureDateInput.value;
+                if (arrivalDateInput.value && arrivalDateInput.value > departureDateInput.value) {
+                    arrivalDateInput.value = departureDateInput.value;
+                }
+            });
+
+            if (checkAvailabilityBtn) {
+                checkAvailabilityBtn.addEventListener('click', (event) => {
+                    event.preventDefault();
+
+                    if (!arrivalDateInput.value || !departureDateInput.value) {
+                        alert('Please select both arrival and departure dates.');
+                        return;
+                    }
+
+                    window.location.href = 'rooms.html';
+                });
+            }
+        }
+
+        // Header Scroll Animation
+        const header = document.getElementById('main-header');
+        const logo = document.getElementById('header-logo');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 0) {
+                header.classList.add('shadow-sm', 'nav-scrolled');
+                logo.classList.remove('brightness-0', 'invert');
+                logo.classList.add('opacity-100');
+            } else {
+                header.classList.remove('shadow-sm', 'nav-scrolled');
+                logo.classList.add('brightness-0', 'invert');
+                logo.classList.remove('opacity-100');
+            }
+        });
+
+        // Entrance Animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = [
+                'hero-title', 'hero-rating', 'hero-sub', 'hero-desc', 'hero-bar'
+            ];
+            
+            elements.forEach((id, index) => {
+                const el = document.getElementById(id);
+                if(el) {
+                    setTimeout(() => {
+                        el.classList.remove('opacity-0', 'translate-y-10');
+                        el.classList.add('opacity-100', 'translate-y-0');
+                    }, 500 + (index * 200));
+                }
+            });
+
+            const revealElements = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-visible');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -10% 0px'
+            });
+
+            revealElements.forEach((el) => {
+                const delay = el.getAttribute('data-reveal-delay');
+                if (delay) {
+                    el.style.setProperty('--reveal-delay', delay);
+                }
+                revealObserver.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html><html lang="en" class="light"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{try{
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e8e8e8",
+                        "primary-container": "#a79b86",
+                        "on-primary-fixed": "#211b0c",
+                        "background": "#f9f9f9",
+                        "surface-dim": "#dadada",
+                        "on-surface": "#1a1c1c",
+                        "on-background": "#1a1c1c",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#675d4b",
+                        "on-tertiary-container": "#32333e",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-low": "#f3f3f3",
+                        "secondary-fixed-dim": "#c6c6c6",
+                        "secondary": "#5e5e5e",
+                        "on-secondary-fixed-variant": "#474747",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#3b3323",
+                        "on-secondary-container": "#646464",
+                        "surface-variant": "#e2e2e2",
+                        "secondary-fixed": "#e2e2e2",
+                        "on-tertiary-fixed-variant": "#454652",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#1b1b1b",
+                        "on-tertiary-fixed": "#1a1b25",
+                        "inverse-surface": "#2f3131",
+                        "outline-variant": "#cec5ba",
+                        "primary-fixed-dim": "#d2c5ae",
+                        "on-surface-variant": "#4b463e",
+                        "on-primary-fixed-variant": "#4f4635",
+                        "tertiary": "#5d5d6a",
+                        "primary-fixed": "#efe1c9",
+                        "tertiary-container": "#9b9ba9",
+                        "surface-tint": "#675d4b",
+                        "secondary-container": "#e2e2e2",
+                        "error-container": "#ffdad6",
+                        "surface": "#f9f9f9",
+                        "outline": "#7d766d",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f1f1f1",
+                        "tertiary-fixed-dim": "#c6c5d4",
+                        "surface-bright": "#f9f9f9",
+                        "surface-container": "#eeeeee",
+                        "tertiary-fixed": "#e2e1f0",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#d2c5ae"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "margin-mobile": "20px",
+                        "margin-desktop": "64px",
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "section-gap": "120px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Montserrat"],
+                        "label-sm": ["Montserrat"],
+                        "headline-md": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "label-lg": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "body-md": ["Montserrat"],
+                        "display-lg-mobile": ["Montserrat"],
+                        "display-xl": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "letterSpacing": "0em", "fontWeight": "500"}],
+                        "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "display-lg-mobile": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "display-xl": ["80px", {"lineHeight": "96px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    }catch(_e){}}catch(_e){}</script><meta charset="utf-8"></head><body class="antialiased text-on-surface">
+<div id="adminDashboardLoader" class="admin-dashboard-loader" role="status" aria-live="polite">
+<div class="admin-dashboard-loader-mark" aria-hidden="true">
+<span></span><span></span><span></span>
+</div>
+<p id="adminDashboardLoaderText">Preparing your dashboard…</p>
+</div>
+<!-- Desktop Navigation Shell -->
+<aside id="adminSidebar" style="visibility: hidden" aria-hidden="true" class="fixed left-0 top-0 bottom-0 w-72 bg-surface-container-lowest border-r border-outline-variant/30 hidden md:flex flex-col z-50">
+<button id="adminSidebarToggle" type="button" aria-controls="adminSidebar" aria-expanded="true" aria-label="Collapse sidebar" title="Collapse sidebar">
+<span id="adminSidebarToggleIcon" class="material-symbols-outlined text-lg">chevron_left</span>
+</button>
+<div class="admin-sidebar-brand-block px-8 py-10">
+<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBug833spFtV4UfdEQdwu7s-UeZ8AvdcizBPOluOhad2CJLl0whgbxOHoYdjT6bl0ZJ66f2nCh078BFlgzfIuD3ButYRuvaWdcHdosz155GpAT8V3al4D-L_zwIZnOOcUCAew8q8-MbIgcg_FbNLUj8qAe4auKU1vRhllqDoBpIR5LIOZh80RstzLXi8O7Az4A0xLVfZRvAeBL8gbAGtQUV08h4dwj3odpDEWB8vSCittzpyiMFCSbnxjavgkYboLe8_uaGRQyFuQ" alt="The Nyakaju Logo" class="admin-sidebar-logo w-full h-auto object-contain">
+<div class="admin-sidebar-monogram hidden w-12 h-12 mx-auto rounded-full bg-primary text-on-primary items-center justify-center font-bold text-xl">N</div>
+<p class="admin-sidebar-label mt-4 font-label-lg text-label-lg uppercase tracking-widest text-primary/60 border-t border-outline-variant pt-4">Admin Portal</p>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a href="#adminOverview" class="admin-sidebar-link flex items-center gap-4 px-4 py-3 rounded-lg bg-primary text-on-primary transition-all duration-300" title="Dashboard">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="admin-sidebar-label font-label-lg text-label-lg uppercase tracking-wider">Dashboard</span>
+</a>
+<a href="/admin-bookings" class="admin-sidebar-link flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all duration-300" title="Bookings">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="admin-sidebar-label font-label-lg text-label-lg uppercase tracking-wider">Bookings</span>
+</a>
+
+
+
+</nav>
+<div class="admin-sidebar-profile p-8 border-t border-outline-variant/30">
+<div class="admin-sidebar-profile-row flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold">AD</div>
+<div class="admin-sidebar-label">
+<p class="font-label-lg text-label-lg">Admin</p>
+
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main id="adminMain" style="visibility: hidden" aria-hidden="true" class="md:ml-72 min-h-screen">
+<!-- Header -->
+<header id="adminOverview" class="sticky top-0 z-40 bg-white/80 backdrop-blur-md px-margin-mobile md:px-margin-desktop py-3 flex justify-between items-center scroll-mt-20">
+<h1 class="font-headline-lg text-headline-lg text-primary text-center w-full">Overview</h1>
+
+</header>
+<div id="adminDashboardContent" class="px-margin-mobile md:px-margin-desktop py-8 space-y-12">
+
+<!-- Available Rooms Grid -->
+<section id="adminRoomsSection">
+<div class="flex justify-between items-end mb-5">
+<div>
+
+<h2 class="font-headline-lg text-headline-lg text-primary">Available Suites</h2>
+</div>
+
+</div>
+<div id="adminRoomsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Deluxe Suite Group -->
+<div class="bg-white rounded-xl overflow-hidden custom-shadow border border-outline-variant/10">
+
+<div class="p-6 space-y-4"><div class="mb-4"><h4 class="text-primary font-headline-md text-headline-md">Deluxe</h4><p class="text-on-surface-variant/60 font-label-sm uppercase tracking-widest">$450 / night</p></div>
+<div class="flex justify-between items-center">
+<span class="font-body-md text-body-md">Total Units</span>
+<span class="font-label-lg">12</span>
+</div>
+<div class="flex justify-between items-center p-3 bg-surface rounded-lg">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-green-500 rounded-full"></span>
+<span class="font-label-lg text-label-lg uppercase">Available</span>
+</div>
+<span id="deluxeAvailable" class="font-headline-md text-primary">04</span>
+</div>
+</div>
+</div>
+<!-- Royal Suite Group -->
+<div class="bg-white rounded-xl overflow-hidden custom-shadow border border-outline-variant/10">
+
+<div class="p-6 space-y-4"><div class="mb-4"><h4 class="text-primary font-headline-md text-headline-md">Royal</h4><p class="text-on-surface-variant/60 font-label-sm uppercase tracking-widest">$850 / night</p></div>
+<div class="flex justify-between items-center">
+<span class="font-body-md text-body-md">Total Units</span>
+<span class="font-label-lg">8</span>
+</div>
+<div class="flex justify-between items-center p-3 bg-surface rounded-lg">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-green-500 rounded-full"></span>
+<span class="font-label-lg text-label-lg uppercase">Available</span>
+</div>
+<span id="royalAvailable" class="font-headline-md text-primary">01</span>
+</div>
+</div>
+</div>
+<!-- Elite Suite Group -->
+<div class="bg-white rounded-xl overflow-hidden custom-shadow border border-outline-variant/10">
+
+<div class="p-6 space-y-4"><div class="mb-4"><h4 class="text-primary font-headline-md text-headline-md">Elite</h4><p class="text-on-surface-variant/60 font-label-sm uppercase tracking-widest">$1,600 / night</p></div>
+<div class="flex justify-between items-center">
+<span class="font-body-md text-body-md">Total Units</span>
+<span class="font-label-lg">5</span>
+</div>
+<div class="flex justify-between items-center p-3 bg-surface rounded-lg">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-green-500 rounded-full"></span>
+<span class="font-label-lg text-label-lg uppercase">Available</span>
+</div>
+<span id="eliteAvailable" class="font-headline-md text-primary">02</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Analytics Dashboard -->
+<section id="adminAnalytics">
+<div class="flex justify-between items-end mb-5">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">Monthly Analysis</h2>
+<p class="mt-1 text-sm text-on-surface-variant/60">Review earnings by month alongside today's live room activity.</p>
+</div>
+<label for="overviewMonth" class="flex items-center gap-3 rounded-xl border border-outline-variant/30 bg-white px-4 py-3 custom-shadow cursor-pointer">
+  <span class="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-primary" aria-hidden="true">
+    <span class="material-symbols-outlined">calendar_month</span>
+  </span>
+  <span class="grid gap-1">
+    <span class="font-label-sm text-[10px] uppercase tracking-widest text-on-surface-variant/60">Monthly earnings period</span>
+    <input id="overviewMonth" type="month" class="min-w-44 bg-transparent font-label-lg text-primary outline-none cursor-pointer">
+  </span>
+</label>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-gutter">
+    <!-- Earnings Metric -->
+    <div class="bg-white p-6 rounded-xl custom-shadow border border-outline-variant/10 flex flex-col justify-between">
+        <h3 id="monthlyEarningsHeading" class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest mb-4">Monthly Earnings</h3>
+        <p id="totalEarnings" class="font-display-lg-mobile text-primary mb-2">$0</p>
+        <div id="earningsTrend" class="flex items-center gap-2 text-on-surface-variant/60">
+            <span id="earningsTrendIcon" class="material-symbols-outlined text-sm">trending_flat</span>
+            <span id="earningsTrendText" class="font-label-sm text-label-sm">0%</span>
+        </div>
+    </div>
+
+    <!-- Today's Earnings Metric -->
+    <div class="bg-white p-6 rounded-xl custom-shadow border border-outline-variant/10 flex flex-col justify-between">
+        <h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest mb-4">Today's Earnings</h3>
+        <p id="todayEarnings" class="font-display-lg-mobile text-primary mb-2">$0</p>
+        <p class="font-label-sm text-label-sm text-on-surface-variant/60">Bookings confirmed today</p>
+    </div>
+    
+    <!-- Rooms Occupied Today -->
+    <div class="bg-white p-6 rounded-xl custom-shadow border border-outline-variant/10 flex flex-col justify-between">
+        <h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest mb-4">Rooms Occupied Today</h3>
+        <p id="roomCapacity" class="font-display-lg-mobile text-primary mb-2">0</p>
+        <p id="roomCapacityText" class="font-label-sm text-label-sm text-on-surface-variant/60">0 of 0 rooms occupied</p>
+    </div>
+
+    <!-- Rooms Available Today -->
+    <div class="bg-white p-6 rounded-xl custom-shadow border border-outline-variant/10 flex flex-col justify-between">
+      <h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest mb-4">Rooms Available Today</h3>
+      <p id="bookingCapacity" class="font-display-lg-mobile text-primary mb-2">0</p>
+      <p id="bookingCapacityText" class="font-label-sm text-label-sm text-on-surface-variant/60">0 of 0 rooms available</p>
+    </div>
+</div>
+</section>
+
+<!-- Recent Bookings Table -->
+<section id="adminBookings" class="scroll-mt-24">
+<div class="admin-booking-panel">
+<div class="admin-booking-panel-header">
+<div>
+<p class="admin-booking-eyebrow">Booking records</p>
+<h2><span id="recentBookingsCount">0</span> recent bookings</h2>
+</div>
+<div class="admin-booking-filters">
+<label><span>Search bookings</span><input id="bookingSearch" placeholder="Guest, phone, room or code" type="search"></label>
+<label><span>Status</span><select id="bookingStatusFilter"><option value="">All statuses</option><option value="pending">Pending</option><option value="confirmed">Confirmed</option><option value="rejected">Rejected</option><option value="cancelled">Cancelled</option><option value="completed">Completed</option></select></label>
+</div>
+</div>
+<div class="admin-booking-table-wrap">
+<table>
+<thead>
+<tr>
+<th>Guest &amp; contact</th>
+<th>Room &amp; code</th>
+<th>Stay</th>
+<th>Booking value</th>
+<th>Status</th>
+<th>Timeline</th>
+<th></th>
+</tr>
+</thead>
+<tbody id="bookingsTableBody">
+<tr><td colspan="7" class="admin-booking-empty">Loading recent bookings…</td></tr>
+<template>
+<!-- Booking 1 -->
+<tr class="hover:bg-surface/50 transition-colors">
+<td class="px-8 py-6">
+<p class="font-body-md text-body-md font-semibold">Julianne Moore</p>
+
+</td>
+<td class="px-8 py-6">
+<p class="font-body-md text-body-md text-on-surface-variant">julianne.m@example.com</p>
+</td>
+<td class="px-8 py-6">
+<p class="font-label-lg text-label-lg">Oct 24 - Oct 29</p>
+<p class="text-[12px] text-on-surface-variant/60">5 Nights</p>
+</td>
+<td class="px-8 py-6">
+<select class="bg-surface border border-outline-variant/30 rounded-md px-3 py-1 text-label-sm font-label-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none">
+    <option selected="">Confirmed</option>
+    <option>Pending</option>
+    <option>Rejected</option>
+</select>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="material-symbols-outlined text-error/70 hover:text-error transition-colors">delete</button>
+</td>
+</tr>
+<!-- Booking 2 -->
+<tr class="hover:bg-surface/50 transition-colors">
+<td class="px-8 py-6">
+<p class="font-body-md text-body-md font-semibold">Alexander Van der Bilt</p>
+
+</td>
+<td class="px-8 py-6">
+<p class="font-body-md text-body-md text-on-surface-variant">alex.v@example.com</p>
+</td>
+<td class="px-8 py-6">
+<p class="font-label-lg text-label-lg">Oct 25 - Oct 27</p>
+<p class="text-[12px] text-on-surface-variant/60">2 Nights</p>
+</td>
+<td class="px-8 py-6">
+<select class="bg-surface border border-outline-variant/30 rounded-md px-3 py-1 text-label-sm font-label-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none">
+    <option>Confirmed</option>
+    <option selected="">Pending</option>
+    <option>Rejected</option>
+</select>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="material-symbols-outlined text-error/70 hover:text-error transition-colors">delete</button>
+</td>
+</tr>
+<!-- Booking 3 -->
+<tr class="hover:bg-surface/50 transition-colors">
+<td class="px-8 py-6">
+<p class="font-body-md text-body-md font-semibold">Sophia Chen</p>
+
+</td>
+<td class="px-8 py-6">
+<p class="font-body-md text-body-md text-on-surface-variant">sophia.c@example.com</p>
+</td>
+<td class="px-8 py-6">
+<p class="font-label-lg text-label-lg">Oct 26 - Oct 31</p>
+<p class="text-[12px] text-on-surface-variant/60">5 Nights</p>
+</td>
+<td class="px-8 py-6">
+<select class="bg-surface border border-outline-variant/30 rounded-md px-3 py-1 text-label-sm font-label-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none">
+    <option selected="">Confirmed</option>
+    <option>Pending</option>
+    <option>Rejected</option>
+</select>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="material-symbols-outlined text-error/70 hover:text-error transition-colors">delete</button>
+</td>
+</tr>
+<!-- Booking 4 -->
+<tr class="hover:bg-surface/50 transition-colors">
+<td class="px-8 py-6">
+<p class="font-body-md text-body-md font-semibold">Marcus Thorne</p>
+
+</td>
+<td class="px-8 py-6">
+<p class="font-body-md text-body-md text-on-surface-variant">marcus.t@example.com</p>
+</td>
+<td class="px-8 py-6">
+<p class="font-label-lg text-label-lg">Nov 02 - Nov 09</p>
+<p class="text-[12px] text-on-surface-variant/60">7 Nights</p>
+</td>
+<td class="px-8 py-6">
+<select class="bg-surface border border-outline-variant/30 rounded-md px-3 py-1 text-label-sm font-label-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none">
+    <option selected="">Confirmed</option>
+    <option>Pending</option>
+    <option>Rejected</option>
+</select>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="material-symbols-outlined text-error/70 hover:text-error transition-colors">delete</button>
+</td>
+</tr>
+</template>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<dialog id="deleteBookingDialog" class="admin-delete-dialog" aria-labelledby="deleteBookingDialogTitle" aria-describedby="deleteBookingDialogMessage">
+<form method="dialog">
+<div class="admin-delete-dialog-icon" aria-hidden="true"><span class="material-symbols-outlined">delete</span></div>
+<p class="admin-delete-dialog-eyebrow">Booking records</p>
+<h2 id="deleteBookingDialogTitle">Delete this booking?</h2>
+<p id="deleteBookingDialogMessage">This booking will be permanently removed.</p>
+<div class="admin-delete-dialog-actions">
+<button type="submit" value="cancel" class="admin-delete-dialog-cancel">Keep booking</button>
+<button type="submit" value="delete" class="admin-delete-dialog-confirm">Delete permanently</button>
+</div>
+</form>
+</dialog>
+</div>
+<!-- Footer -->
+<footer class="px-margin-mobile md:px-margin-desktop py-8 border-t border-outline-variant/30 flex justify-between items-center">
+<p class="text-label-sm text-on-surface-variant/60 uppercase tracking-widest text-center">© 2026 THE NYAKAJU. ALL RIGHTS RESERVED.</p>
+
+</footer>
+</main>
+<script>
+  if (sessionStorage.getItem('nyakajuAdminAuthenticated') !== 'true') {
+    window.location.replace('admin login.html');
+  }
+
+  const bookingKey = 'nyakajuBookings';
+  const roomInventory = { 'Deluxe Suite': 12, 'Royal Suite': 8, 'Elite Suite': 5 };
+  const roomRates = { 'Deluxe Suite': 450, 'Royal Suite': 850, 'Elite Suite': 1600 };
+  const seedBookings = [
+    { id: 'seed-1', guestName: 'Julianne Moore', email: 'julianne.m@example.com', room: 'Royal Suite', arrivalDate: '2026-10-24', departureDate: '2026-10-29', status: 'Confirmed', rate: 850 },
+    { id: 'seed-2', guestName: 'Alexander Van der Bilt', email: 'alex.v@example.com', room: 'Deluxe Suite', arrivalDate: '2026-10-25', departureDate: '2026-10-27', status: 'Pending', rate: 450 },
+    { id: 'seed-3', guestName: 'Sophia Chen', email: 'sophia.c@example.com', room: 'Elite Suite', arrivalDate: '2026-10-26', departureDate: '2026-10-31', status: 'Confirmed', rate: 1600 },
+    { id: 'seed-4', guestName: 'Marcus Thorne', email: 'marcus.t@example.com', room: 'Royal Suite', arrivalDate: '2026-11-02', departureDate: '2026-11-09', status: 'Confirmed', rate: 850 }
+  ];
+  if (!localStorage.getItem(bookingKey)) localStorage.setItem(bookingKey, JSON.stringify(seedBookings));
+
+  const formatter = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' });
+  const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+  const nightsFor = booking => Math.max(0, Math.round((Date.parse(`${booking.departureDate}T00:00:00`) - Date.parse(`${booking.arrivalDate}T00:00:00`)) / 86400000));
+  const getBookings = () => JSON.parse(localStorage.getItem(bookingKey) || '[]');
+  const saveBookings = bookings => localStorage.setItem(bookingKey, JSON.stringify(bookings));
+
+  function renderBookings() {
+    const query = document.getElementById('bookingSearch').value.trim().toLowerCase();
+    const bookings = getBookings();
+    const filtered = bookings.filter(booking => `${booking.guestName} ${booking.email} ${booking.room}`.toLowerCase().includes(query));
+    const body = document.getElementById('bookingsTableBody');
+    body.innerHTML = filtered.length ? filtered.map(booking => {
+      const nights = nightsFor(booking);
+      const arrival = formatter.format(new Date(booking.arrivalDate + 'T00:00:00'));
+      const departure = formatter.format(new Date(booking.departureDate + 'T00:00:00'));
+      return `<tr class="hover:bg-surface/50 transition-colors" data-id="${booking.id}">
+        <td class="px-8 py-6"><p class="font-body-md text-body-md font-semibold">${escapeHtml(booking.guestName)}</p><p class="text-[12px] text-on-surface-variant/60">${escapeHtml(booking.room)}</p></td>
+        <td class="px-8 py-6"><p class="font-body-md text-body-md text-on-surface-variant">${escapeHtml(booking.email)}</p></td>
+        <td class="px-8 py-6"><p class="font-label-lg text-label-lg">${arrival} - ${departure}</p><p class="text-[12px] text-on-surface-variant/60">${nights} Night${nights === 1 ? '' : 's'}</p></td>
+        <td class="px-8 py-6"><select class="booking-status bg-surface border border-outline-variant/30 rounded-md px-3 py-1 text-label-sm font-label-sm outline-none"><option${booking.status === 'Confirmed' ? ' selected' : ''}>Confirmed</option><option${booking.status === 'Pending' ? ' selected' : ''}>Pending</option><option${booking.status === 'Rejected' ? ' selected' : ''}>Rejected</option></select></td>
+        <td class="px-8 py-6 text-right"><button class="delete-booking material-symbols-outlined text-error/70 hover:text-error transition-colors" aria-label="Delete booking">delete</button></td>
+      </tr>`;
+    }).join('') : '<tr><td colspan="5" class="px-8 py-10 text-center text-on-surface-variant">No bookings found.</td></tr>';
+    renderMetrics(bookings);
+  }
+
+  function renderMetrics(bookings) {
+    const active = bookings.filter(booking => booking.status !== 'Rejected');
+    const occupied = active.length;
+    const capacity = Math.round((occupied / 25) * 100);
+    const earnings = bookings.filter(booking => booking.status === 'Confirmed').reduce((sum, booking) => sum + nightsFor(booking) * (booking.rate || roomRates[booking.room] || 0), 0);
+    document.getElementById('totalEarnings').textContent = currency.format(earnings);
+    document.getElementById('roomCapacity').textContent = `${capacity}%`;
+    document.getElementById('bookingCapacity').textContent = `${capacity}%`;
+    document.getElementById('bookingCapacityText').textContent = `${occupied} of 25 units occupied`;
+    Object.entries(roomInventory).forEach(([room, total]) => {
+      const count = active.filter(booking => booking.room === room).length;
+      const id = `${room.split(' ')[0].toLowerCase()}Available`;
+      document.getElementById(id).textContent = String(Math.max(0, total - count)).padStart(2, '0');
+    });
+  }
+
+  function escapeHtml(value) {
+    const element = document.createElement('div');
+    element.textContent = value || '';
+    return element.innerHTML;
+  }
+
+  document.getElementById('bookingSearch').addEventListener('input', renderBookings);
+  document.getElementById('bookingsTableBody').addEventListener('change', event => {
+    if (!event.target.matches('.booking-status')) return;
+    const id = event.target.closest('tr').dataset.id;
+    const bookings = getBookings().map(booking => booking.id === id ? { ...booking, status: event.target.value } : booking);
+    saveBookings(bookings);
+    renderBookings();
+  });
+  document.getElementById('bookingsTableBody').addEventListener('click', event => {
+    const button = event.target.closest('.delete-booking');
+    if (!button || !confirm('Delete this booking?')) return;
+    const id = button.closest('tr').dataset.id;
+    saveBookings(getBookings().filter(booking => booking.id !== id));
+    renderBookings();
+  });
+  document.getElementById('viewAllBookings').addEventListener('click', () => {
+    document.getElementById('bookingSearch').value = '';
+    renderBookings();
+    document.getElementById('bookingsTableBody').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+  renderBookings();
+</script></body></html>

@@ -1,0 +1,38 @@
+{
+  "name": "nyakaju-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "migrate:room-images": "node --env-file=.env.local scripts/migrate-room-images.mjs",
+    "seed:room-images": "node --env-file=.env.local scripts/seed-room-images.mjs",
+    "setup:admin": "node --env-file=.env.local scripts/setup-admin.mjs",
+    "test:booking-concurrency": "node --env-file=.env.local scripts/test-booking-concurrency.mjs",
+    "test:supabase-security": "node --env-file=.env.local scripts/test-supabase-security.mjs"
+  },
+  "dependencies": {
+    "@supabase/ssr": "0.12.3",
+    "@supabase/supabase-js": "2.110.8",
+    "next": "16.2.11",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "sharp": "0.34.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.11",
+    "fast-glob": "^3.3.3",
+    "supabase": "2.109.1",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

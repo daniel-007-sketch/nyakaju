@@ -1,0 +1,99 @@
+{
+  "startedAt": "2026-07-27T13:23:31.166Z",
+  "completedAt": "2026-07-27T13:23:54.360Z",
+  "bucket": "room-images",
+  "oldObjectsRetained": true,
+  "migrated": [
+    {
+      "id": 1,
+      "roomSlug": "deluxe",
+      "oldPath": "seed/deluxe/delux_bed.webp",
+      "newPath": "optimized-v1/deluxe/1-533c264a-b4a1-4aa7-adb5-1b868fca6d17.webp",
+      "oldBytes": 3152378,
+      "newBytes": 94636,
+      "width": 1920,
+      "height": 1280
+    },
+    {
+      "id": 2,
+      "roomSlug": "deluxe",
+      "oldPath": "seed/deluxe/delux_bathroom.webp",
+      "newPath": "optimized-v1/deluxe/2-8d742405-2525-4bb5-86c4-f238dfacd335.webp",
+      "oldBytes": 2886454,
+      "newBytes": 84510,
+      "width": 1280,
+      "height": 1920
+    },
+    {
+      "id": 3,
+      "roomSlug": "deluxe",
+      "oldPath": "seed/deluxe/delux_alt.webp",
+      "newPath": "optimized-v1/deluxe/3-a21096dc-b1e2-48aa-a91a-523015916b59.webp",
+      "oldBytes": 2992408,
+      "newBytes": 103104,
+      "width": 1920,
+      "height": 1280
+    },
+    {
+      "id": 4,
+      "roomSlug": "royal",
+      "oldPath": "seed/royal/royal_bed.webp",
+      "newPath": "optimized-v1/royal/4-1589d8a9-3f19-4177-afe1-3192aa3a51e3.webp",
+      "oldBytes": 3995698,
+      "newBytes": 93592,
+      "width": 1280,
+      "height": 1920
+    },
+    {
+      "id": 5,
+      "roomSlug": "royal",
+      "oldPath": "seed/royal/royal_bathroom.webp",
+      "newPath": "optimized-v1/royal/5-473d3ba1-679c-4084-8bfa-02b4188e2f90.webp",
+      "oldBytes": 2199004,
+      "newBytes": 50484,
+      "width": 1280,
+      "height": 1920
+    },
+    {
+      "id": 6,
+      "roomSlug": "royal",
+      "oldPath": "seed/royal/royal_alt.webp",
+      "newPath": "optimized-v1/royal/6-fb01f841-c324-422e-9892-b0f69a1e42f7.webp",
+      "oldBytes": 2828446,
+      "newBytes": 86668,
+      "width": 1920,
+      "height": 1280
+    },
+    {
+      "id": 7,
+      "roomSlug": "elite",
+      "oldPath": "seed/elite/elite.webp",
+      "newPath": "optimized-v1/elite/7-87ce770b-9e96-4053-8e37-cbfa2566b481.webp",
+      "oldBytes": 2672884,
+      "newBytes": 48702,
+      "width": 1280,
+      "height": 1920
+    },
+    {
+      "id": 8,
+      "roomSlug": "elite",
+      "oldPath": "seed/elite/elite_bathroom.webp",
+      "newPath": "optimized-v1/elite/8-668151bb-d92b-4474-8333-a66df9fa4439.webp",
+      "oldBytes": 3810090,
+      "newBytes": 78650,
+      "width": 1280,
+      "height": 1920
+    },
+    {
+      "id": 9,
+      "roomSlug": "elite",
+      "oldPath": "seed/elite/elite_alt.webp",
+      "newPath": "optimized-v1/elite/9-4998e811-d5d4-4748-9fb4-f19047467d15.webp",
+      "oldBytes": 3564148,
+      "newBytes": 150532,
+      "width": 1920,
+      "height": 1280
+    }
+  ],
+  "skipped": []
+}

@@ -1,0 +1,5 @@
+.next-stale-about-image/
+.next-corrupt-*/
+assets/
+reports/
+.codex-*.log

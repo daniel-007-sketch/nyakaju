@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Portal - The Nyakaju</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#c6c6c6",
+                        "surface-container-low": "#f3f3f3",
+                        "secondary": "#5e5e5e",
+                        "on-secondary-fixed": "#1b1b1b",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e8e8e8",
+                        "inverse-surface": "#2f3131",
+                        "surface": "#f9f9f9",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#454652",
+                        "tertiary-fixed-dim": "#c6c5d4",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-tertiary-container": "#32333e",
+                        "tertiary-container": "#9b9ba9",
+                        "primary-fixed": "#efe1c9",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#3b3323",
+                        "on-secondary-fixed-variant": "#474747",
+                        "surface-container": "#eeeeee",
+                        "on-primary-fixed": "#211b0c",
+                        "surface-dim": "#dadada",
+                        "on-tertiary-fixed": "#1a1b25",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#a79b86",
+                        "secondary-container": "#e2e2e2",
+                        "on-secondary-container": "#646464",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f1f1f1",
+                        "tertiary": "#5d5d6a",
+                        "surface-tint": "#675d4b",
+                        "surface-bright": "#f9f9f9",
+                        "primary": "#675d4b",
+                        "on-surface-variant": "#4b463e",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#1a1c1c",
+                        "inverse-primary": "#d2c5ae",
+                        "background": "#f9f9f9",
+                        "primary-fixed-dim": "#d2c5ae",
+                        "tertiary-fixed": "#e2e1f0",
+                        "secondary-fixed": "#e2e2e2",
+                        "on-primary-fixed-variant": "#4f4635",
+                        "outline-variant": "#cec5ba",
+                        "on-surface": "#1a1c1c",
+                        "surface-variant": "#e2e2e2",
+                        "outline": "#7d766d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "margin-mobile": "20px",
+                        "margin-desktop": "64px",
+                        "container-max": "1440px",
+                        "section-gap": "120px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Montserrat"],
+                        "display-lg-mobile": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "headline-md": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "display-xl": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "body-md": ["Montserrat"],
+                        "label-sm": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "display-lg-mobile": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "display-lg": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "letterSpacing": "0em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "display-xl": ["80px", { "lineHeight": "96px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col font-body-md">
+<!-- Main Content Area: Centered Login Card -->
+<main class="flex-grow flex items-center justify-center p-margin-mobile md:p-margin-desktop relative overflow-hidden">
+<!-- Subtle background texture/blob for depth -->
+<div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none opacity-40">
+<div class="absolute -top-[20%] -left-[10%] w-[50vw] h-[50vw] rounded-full bg-primary-fixed-dim blur-[120px] mix-blend-multiply"></div>
+<div class="absolute bottom-[10%] -right-[10%] w-[40vw] h-[40vw] rounded-full bg-secondary-fixed-dim blur-[100px] mix-blend-multiply"></div>
+</div>
+<div class="w-full max-w-[480px]">
+<!-- Logo Container -->
+<div class="flex justify-center mb-10">
+<img alt="The Nyakaju Logo" class="h-6 md:h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCJC2x3gz-mFEcYbNW093BJSeB0lWP-1M0bSIYB9R2SiY5-A6-rx4MObPbK5VSNf9TaUDgvM4xdjPe4lnv8q2zGauV140qH3R-0y7v29RgaixUN3W-PsuNr6E9VYYcBmpsG6TfTpOCtSo6Qi7NlDqv-jEvL7_UiSfvygC3kEHNY4ALnd_x182qoYB6h6FjkiBYWBAmYGJmds1XXalnlZbUrgJ2WSor93IjJSgupoA0LkY8LFCqidtby17-db1CFmJVJJfRaxMkfw"/>
+</div>
+<!-- Login Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] p-8 md:p-12 border border-outline-variant/30 relative z-10">
+<!-- Header -->
+<div class="text-center mb-10">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-md md:text-headline-md text-on-background mb-3">Admin Portal</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Please enter your credentials to access the dashboard.</p>
+</div>
+<!-- Form -->
+<form id="adminLoginForm" class="flex flex-col gap-6" method="POST">
+<!-- Username Input -->
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest pl-1" for="username">Username</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-secondary">person</span>
+<input autocapitalize="none" autocomplete="username" class="w-full bg-surface border border-outline-variant rounded-lg pl-12 pr-4 py-4 font-body-md text-body-md text-on-surface placeholder:text-secondary-fixed-dim focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" id="username" name="username" placeholder="admin" required="" spellcheck="false" type="text"/>
+</div>
+</div>
+<!-- Password Input -->
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest pl-1" for="password">Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-secondary">lock</span>
+<input autocomplete="current-password" class="w-full bg-surface border border-outline-variant rounded-lg pl-12 pr-12 py-4 font-body-md text-body-md text-on-surface placeholder:text-secondary-fixed-dim focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+<button id="passwordToggle" class="absolute right-4 top-1/2 -translate-y-1/2 text-secondary hover:text-on-background transition-colors focus:outline-none" type="button" aria-label="Show password">
+<span class="material-symbols-outlined text-[20px]">visibility_off</span>
+</button>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="mt-4 w-full bg-on-background hover:bg-surface-tint text-on-primary rounded-full py-4 px-6 flex items-center justify-between group transition-all duration-300 shadow-sm hover:shadow-md" type="submit">
+<span class="font-label-lg text-label-lg tracking-widest uppercase pl-4">Sign In</span>
+<div class="bg-surface-container-lowest text-on-background rounded-full w-10 h-10 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'wght' 300;">arrow_forward</span>
+</div>
+</button>
+</form>
+<p id="loginMessage" class="mt-5 text-center font-label-sm text-error hidden" role="alert"></p>
+<p class="mt-4 text-center font-label-sm text-on-surface-variant">Administrator username: <strong>admin</strong></p>
+<!-- Secure Footer subtle text -->
+<div class="mt-10 flex items-center justify-center gap-2 text-secondary-fixed-dim font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">shield</span>
+<span>Secure Admin Connection</span>
+</div>
+</div>
+</div>
+</main>
+</body></html>

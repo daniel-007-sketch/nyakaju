@@ -1,0 +1,684 @@
+{
+  "generatedAt": "2026-07-27T13:09:09.000Z",
+  "format": "webp",
+  "quality": 78,
+  "sizes": [
+    768,
+    1280,
+    1920
+  ],
+  "images": {
+    "home_slides/slide_1.webp": {
+      "sourceWidth": 5472,
+      "sourceHeight": 3648,
+      "variants": [
+        {
+          "url": "/media/home_slides/slide_1-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 13954
+        },
+        {
+          "url": "/media/home_slides/slide_1-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 33786
+        },
+        {
+          "url": "/media/home_slides/slide_1-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 67920
+        }
+      ]
+    },
+    "home_slides/slide_2.webp": {
+      "sourceWidth": 4320,
+      "sourceHeight": 2880,
+      "variants": [
+        {
+          "url": "/media/home_slides/slide_2-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 14282
+        },
+        {
+          "url": "/media/home_slides/slide_2-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 28734
+        },
+        {
+          "url": "/media/home_slides/slide_2-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 50434
+        }
+      ]
+    },
+    "home_slides/slide_3.webp": {
+      "sourceWidth": 4627,
+      "sourceHeight": 3085,
+      "variants": [
+        {
+          "url": "/media/home_slides/slide_3-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 31820
+        },
+        {
+          "url": "/media/home_slides/slide_3-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 73326
+        },
+        {
+          "url": "/media/home_slides/slide_3-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 133040
+        }
+      ]
+    },
+    "home_slides/slide_4.webp": {
+      "sourceWidth": 4364,
+      "sourceHeight": 2909,
+      "variants": [
+        {
+          "url": "/media/home_slides/slide_4-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 40512
+        },
+        {
+          "url": "/media/home_slides/slide_4-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 85316
+        },
+        {
+          "url": "/media/home_slides/slide_4-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 150318
+        }
+      ]
+    },
+    "home_slides/slide_5.webp": {
+      "sourceWidth": 5472,
+      "sourceHeight": 3648,
+      "variants": [
+        {
+          "url": "/media/home_slides/slide_5-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 19140
+        },
+        {
+          "url": "/media/home_slides/slide_5-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 37994
+        },
+        {
+          "url": "/media/home_slides/slide_5-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 64614
+        }
+      ]
+    },
+    "home_slides/slide_6.webp": {
+      "sourceWidth": 5472,
+      "sourceHeight": 3648,
+      "variants": [
+        {
+          "url": "/media/home_slides/slide_6-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 72602
+        },
+        {
+          "url": "/media/home_slides/slide_6-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 187450
+        },
+        {
+          "url": "/media/home_slides/slide_6-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 381598
+        }
+      ]
+    },
+    "home_slides/slide_7.webp": {
+      "sourceWidth": 4957,
+      "sourceHeight": 3305,
+      "variants": [
+        {
+          "url": "/media/home_slides/slide_7-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 61600
+        },
+        {
+          "url": "/media/home_slides/slide_7-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 157960
+        },
+        {
+          "url": "/media/home_slides/slide_7-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 310178
+        }
+      ]
+    },
+    "home_slides/slide_8.webp": {
+      "sourceWidth": 4764,
+      "sourceHeight": 3176,
+      "variants": [
+        {
+          "url": "/media/home_slides/slide_8-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 89310
+        },
+        {
+          "url": "/media/home_slides/slide_8-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 235944
+        },
+        {
+          "url": "/media/home_slides/slide_8-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 475424
+        }
+      ]
+    },
+    "home_slides/slide_9.webp": {
+      "sourceWidth": 5472,
+      "sourceHeight": 3648,
+      "variants": [
+        {
+          "url": "/media/home_slides/slide_9-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 12900
+        },
+        {
+          "url": "/media/home_slides/slide_9-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 31786
+        },
+        {
+          "url": "/media/home_slides/slide_9-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 65908
+        }
+      ]
+    },
+    "home_slides/slide_10.webp": {
+      "sourceWidth": 5472,
+      "sourceHeight": 3648,
+      "variants": [
+        {
+          "url": "/media/home_slides/slide_10-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 44426
+        },
+        {
+          "url": "/media/home_slides/slide_10-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 90010
+        },
+        {
+          "url": "/media/home_slides/slide_10-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 160918
+        }
+      ]
+    },
+    "gallery/gallery_1.webp": {
+      "sourceWidth": 5472,
+      "sourceHeight": 3648,
+      "variants": [
+        {
+          "url": "/media/gallery/gallery_1-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 26784
+        },
+        {
+          "url": "/media/gallery/gallery_1-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 66596
+        },
+        {
+          "url": "/media/gallery/gallery_1-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 132570
+        }
+      ]
+    },
+    "gallery/gallery_2.webp": {
+      "sourceWidth": 5472,
+      "sourceHeight": 3648,
+      "variants": [
+        {
+          "url": "/media/gallery/gallery_2-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 19324
+        },
+        {
+          "url": "/media/gallery/gallery_2-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 46106
+        },
+        {
+          "url": "/media/gallery/gallery_2-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 88482
+        }
+      ]
+    },
+    "gallery/gallery_3.webp": {
+      "sourceWidth": 4975,
+      "sourceHeight": 3317,
+      "variants": [
+        {
+          "url": "/media/gallery/gallery_3-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 26736
+        },
+        {
+          "url": "/media/gallery/gallery_3-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 59110
+        },
+        {
+          "url": "/media/gallery/gallery_3-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 115338
+        }
+      ]
+    },
+    "gallery/gallery_4.webp": {
+      "sourceWidth": 5191,
+      "sourceHeight": 3461,
+      "variants": [
+        {
+          "url": "/media/gallery/gallery_4-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 19858
+        },
+        {
+          "url": "/media/gallery/gallery_4-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 48884
+        },
+        {
+          "url": "/media/gallery/gallery_4-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 124128
+        }
+      ]
+    },
+    "gallery/gallery_5.webp": {
+      "sourceWidth": 5472,
+      "sourceHeight": 3648,
+      "variants": [
+        {
+          "url": "/media/gallery/gallery_5-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 30526
+        },
+        {
+          "url": "/media/gallery/gallery_5-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 67144
+        },
+        {
+          "url": "/media/gallery/gallery_5-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 120268
+        }
+      ]
+    },
+    "gallery/gallery_6.webp": {
+      "sourceWidth": 5472,
+      "sourceHeight": 3648,
+      "variants": [
+        {
+          "url": "/media/gallery/gallery_6-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 75976
+        },
+        {
+          "url": "/media/gallery/gallery_6-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 198026
+        },
+        {
+          "url": "/media/gallery/gallery_6-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 408394
+        }
+      ]
+    },
+    "gallery/gallery_7.webp": {
+      "sourceWidth": 5472,
+      "sourceHeight": 3648,
+      "variants": [
+        {
+          "url": "/media/gallery/gallery_7-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 30052
+        },
+        {
+          "url": "/media/gallery/gallery_7-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 68514
+        },
+        {
+          "url": "/media/gallery/gallery_7-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 128982
+        }
+      ]
+    },
+    "gallery/gallery_8.webp": {
+      "sourceWidth": 5472,
+      "sourceHeight": 3648,
+      "variants": [
+        {
+          "url": "/media/gallery/gallery_8-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 44196
+        },
+        {
+          "url": "/media/gallery/gallery_8-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 95488
+        },
+        {
+          "url": "/media/gallery/gallery_8-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 177700
+        }
+      ]
+    },
+    "gallery/gallery_9.webp": {
+      "sourceWidth": 5472,
+      "sourceHeight": 3648,
+      "variants": [
+        {
+          "url": "/media/gallery/gallery_9-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 38832
+        },
+        {
+          "url": "/media/gallery/gallery_9-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 97076
+        },
+        {
+          "url": "/media/gallery/gallery_9-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 190528
+        }
+      ]
+    },
+    "room_images/delux_alt.webp": {
+      "sourceWidth": 5472,
+      "sourceHeight": 3648,
+      "variants": [
+        {
+          "url": "/media/room_images/delux_alt-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 24624
+        },
+        {
+          "url": "/media/room_images/delux_alt-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 53124
+        },
+        {
+          "url": "/media/room_images/delux_alt-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 103104
+        }
+      ]
+    },
+    "room_images/delux_bathroom.webp": {
+      "sourceWidth": 3648,
+      "sourceHeight": 5472,
+      "variants": [
+        {
+          "url": "/media/room_images/delux_bathroom-768.webp",
+          "width": 512,
+          "height": 768,
+          "bytes": 20874
+        },
+        {
+          "url": "/media/room_images/delux_bathroom-1280.webp",
+          "width": 853,
+          "height": 1280,
+          "bytes": 44870
+        },
+        {
+          "url": "/media/room_images/delux_bathroom-1920.webp",
+          "width": 1280,
+          "height": 1920,
+          "bytes": 84510
+        }
+      ]
+    },
+    "room_images/delux_bed.webp": {
+      "sourceWidth": 5472,
+      "sourceHeight": 3648,
+      "variants": [
+        {
+          "url": "/media/room_images/delux_bed-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 22568
+        },
+        {
+          "url": "/media/room_images/delux_bed-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 50102
+        },
+        {
+          "url": "/media/room_images/delux_bed-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 94636
+        }
+      ]
+    },
+    "room_images/elite_alt.webp": {
+      "sourceWidth": 5472,
+      "sourceHeight": 3648,
+      "variants": [
+        {
+          "url": "/media/room_images/elite_alt-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 31740
+        },
+        {
+          "url": "/media/room_images/elite_alt-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 76444
+        },
+        {
+          "url": "/media/room_images/elite_alt-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 150532
+        }
+      ]
+    },
+    "room_images/elite_bathroom.webp": {
+      "sourceWidth": 3648,
+      "sourceHeight": 5472,
+      "variants": [
+        {
+          "url": "/media/room_images/elite_bathroom-768.webp",
+          "width": 512,
+          "height": 768,
+          "bytes": 18346
+        },
+        {
+          "url": "/media/room_images/elite_bathroom-1280.webp",
+          "width": 853,
+          "height": 1280,
+          "bytes": 41158
+        },
+        {
+          "url": "/media/room_images/elite_bathroom-1920.webp",
+          "width": 1280,
+          "height": 1920,
+          "bytes": 78650
+        }
+      ]
+    },
+    "room_images/elite.webp": {
+      "sourceWidth": 3648,
+      "sourceHeight": 5472,
+      "variants": [
+        {
+          "url": "/media/room_images/elite-768.webp",
+          "width": 512,
+          "height": 768,
+          "bytes": 13022
+        },
+        {
+          "url": "/media/room_images/elite-1280.webp",
+          "width": 853,
+          "height": 1280,
+          "bytes": 27882
+        },
+        {
+          "url": "/media/room_images/elite-1920.webp",
+          "width": 1280,
+          "height": 1920,
+          "bytes": 48702
+        }
+      ]
+    },
+    "room_images/royal_alt.webp": {
+      "sourceWidth": 5472,
+      "sourceHeight": 3648,
+      "variants": [
+        {
+          "url": "/media/room_images/royal_alt-768.webp",
+          "width": 768,
+          "height": 512,
+          "bytes": 23534
+        },
+        {
+          "url": "/media/room_images/royal_alt-1280.webp",
+          "width": 1280,
+          "height": 853,
+          "bytes": 48408
+        },
+        {
+          "url": "/media/room_images/royal_alt-1920.webp",
+          "width": 1920,
+          "height": 1280,
+          "bytes": 86668
+        }
+      ]
+    },
+    "room_images/royal_bathroom.webp": {
+      "sourceWidth": 3648,
+      "sourceHeight": 5472,
+      "variants": [
+        {
+          "url": "/media/room_images/royal_bathroom-768.webp",
+          "width": 512,
+          "height": 768,
+          "bytes": 14858
+        },
+        {
+          "url": "/media/room_images/royal_bathroom-1280.webp",
+          "width": 853,
+          "height": 1280,
+          "bytes": 29702
+        },
+        {
+          "url": "/media/room_images/royal_bathroom-1920.webp",
+          "width": 1280,
+          "height": 1920,
+          "bytes": 50484
+        }
+      ]
+    },
+    "room_images/royal_bed.webp": {
+      "sourceWidth": 3648,
+      "sourceHeight": 5472,
+      "variants": [
+        {
+          "url": "/media/room_images/royal_bed-768.webp",
+          "width": 512,
+          "height": 768,
+          "bytes": 22770
+        },
+        {
+          "url": "/media/room_images/royal_bed-1280.webp",
+          "width": 853,
+          "height": 1280,
+          "bytes": 49464
+        },
+        {
+          "url": "/media/room_images/royal_bed-1920.webp",
+          "width": 1280,
+          "height": 1920,
+          "bytes": 93592
+        }
+      ]
+    }
+  }
+}

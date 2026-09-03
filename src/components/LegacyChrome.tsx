@@ -1,3 +1,5 @@
+import { SiteFooter } from "@/components/SiteFooter";
+
 type LegacyChromeProps = {
   preHeaderMarkup: string;
   headerMarkup: string;
@@ -12,7 +14,7 @@ export function LegacyChrome({ preHeaderMarkup, headerMarkup, footerMarkup, cont
       {preHeaderMarkup ? <div dangerouslySetInnerHTML={{ __html: preHeaderMarkup }} /> : null}
       {headerMarkup ? <div dangerouslySetInnerHTML={{ __html: headerMarkup }} /> : null}
       <div dangerouslySetInnerHTML={{ __html: contentMarkup }} />
-      {footerMarkup ? <div dangerouslySetInnerHTML={{ __html: footerMarkup }} /> : null}
+      {footerMarkup ? <SiteFooter /> : null}
       {postFooterMarkup ? <div dangerouslySetInnerHTML={{ __html: postFooterMarkup }} /> : null}
     </>
   );

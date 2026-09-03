@@ -321,6 +321,10 @@ function setupIndexPage(): Cleanup[] {
   const checkAvailabilityBtn = document.getElementById("check-availability-btn") as HTMLAnchorElement | null;
 
   if (arrivalDateInput && departureDateInput) {
+    const syncDateFieldDisplay = (input: HTMLInputElement) => {
+      input.closest(".date-input-shell")?.classList.toggle("date-input-has-value", Boolean(input.value));
+    };
+
     const now = new Date();
     const today = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().split("T")[0];
 
@@ -334,11 +338,16 @@ function setupIndexPage(): Cleanup[] {
       departureDateInput.value = departureDateInput.min;
     }
 
+    syncDateFieldDisplay(arrivalDateInput);
+    syncDateFieldDisplay(departureDateInput);
+
     const syncArrival = () => {
       departureDateInput.min = arrivalDateInput.value;
       if (departureDateInput.value && departureDateInput.value < arrivalDateInput.value) {
         departureDateInput.value = arrivalDateInput.value;
       }
+      syncDateFieldDisplay(arrivalDateInput);
+      syncDateFieldDisplay(departureDateInput);
     };
 
     const syncDeparture = () => {
@@ -346,8 +355,12 @@ function setupIndexPage(): Cleanup[] {
       if (arrivalDateInput.value && arrivalDateInput.value > departureDateInput.value) {
         arrivalDateInput.value = departureDateInput.value;
       }
+      syncDateFieldDisplay(arrivalDateInput);
+      syncDateFieldDisplay(departureDateInput);
     };
 
+    cleanups.push(addListener(arrivalDateInput, "input", () => syncDateFieldDisplay(arrivalDateInput)));
+    cleanups.push(addListener(departureDateInput, "input", () => syncDateFieldDisplay(departureDateInput)));
     cleanups.push(addListener(arrivalDateInput, "change", syncArrival));
     cleanups.push(addListener(departureDateInput, "change", syncDeparture));
 

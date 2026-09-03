@@ -58,6 +58,12 @@
   letter-spacing: -0.025em;
 }
 
+.contactLogo {
+  width: min(220px, 70vw);
+  height: auto;
+  filter: brightness(0) invert(1);
+}
+
 .contactLinks {
   display: flex;
   flex-wrap: wrap;

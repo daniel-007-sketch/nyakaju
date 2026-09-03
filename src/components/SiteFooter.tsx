@@ -33,9 +33,14 @@ export function SiteFooter() {
       <div className={styles.imageSection}>
         <div className={styles.content}>
           <div className={styles.topRow}>
-            <section className={styles.contact} aria-labelledby="footer-contact-heading">
-              <p className={styles.eyebrow}>We are here to help</p>
-              <h2 id="footer-contact-heading">Any Questions?</h2>
+            <section className={styles.contact} aria-label="Contact The Nyakaju">
+              <Image
+                className={styles.contactLogo}
+                src="/remote-images/AB6AXuCVKM6L1uOBsBdOrbb4.png"
+                alt="The Nyakaju"
+                width={251}
+                height={58}
+              />
               <div className={styles.contactLinks}>
                 <a href="tel:+256782173076">+256 782 173 076</a>
                 <a href="mailto:info@nyakaju.com">info@nyakaju.com</a>

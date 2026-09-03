@@ -174,10 +174,11 @@
 
 .copyrightBar {
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   justify-content: center;
-  min-height: 92px;
-  padding: 20px max(64px, calc((100% - 1312px) / 2));
+  height: 30px;
+  padding: 0 20px;
   background: #000;
   text-align: center;
 }
@@ -189,6 +190,7 @@
   font-weight: 500;
   letter-spacing: 0.12em;
   line-height: 1.5;
+  white-space: nowrap;
   text-transform: uppercase;
 }
 
@@ -232,7 +234,12 @@
   }
 
   .copyrightBar {
-    padding: 32px 20px;
+    padding: 0 12px;
+  }
+
+  .copyrightBar p {
+    font-size: clamp(7px, 2.3vw, 10px);
+    letter-spacing: 0.06em;
   }
 }
 

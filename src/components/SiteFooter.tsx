@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import styles from "./SiteFooter.module.css";
 
 function InstagramIcon() {
@@ -78,11 +77,6 @@ export function SiteFooter() {
 
       <div className={styles.copyrightBar}>
         <p>© 2026 The Nyakaju. All rights reserved.</p>
-        <Link className={styles.mark} href="/" aria-label="The Nyakaju home">N</Link>
-        <nav className={styles.legalLinks} aria-label="Legal">
-          <a href="#privacy">Privacy Policy</a>
-          <a href="#terms">Terms &amp; Conditions</a>
-        </nav>
       </div>
     </footer>
   );

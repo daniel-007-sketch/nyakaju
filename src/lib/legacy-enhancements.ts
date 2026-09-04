@@ -100,29 +100,125 @@ function bookingHref(
   return `/complete-booking?${params.toString()}`;
 }
 
-function renderHomepageRooms(rooms: PublicRoom[]) {
-  const grid = document.getElementById("homepageRoomsGrid");
-  if (!grid) return;
+function renderHomepageRooms(rooms: PublicRoom[]): Cleanup[] {
+  const container = document.getElementById("homepageRoomsGrid");
+  if (!container) return [];
 
-  grid.innerHTML = rooms.length
-    ? rooms.map((room) => `
-      <a href="/rooms#${escapeHtml(room.slug)}-suite" class="group block bg-surface-container-lowest rounded-xl overflow-hidden custom-shadow transition-transform duration-200 hover:-translate-y-2">
-        <div class="relative aspect-[4/3] overflow-hidden">
-          <img class="w-full h-full object-cover transition-transform duration-200 group-hover:scale-110" alt="${escapeHtml(room.images[0]?.alt || room.name)}" src="${escapeHtml(roomImage(room))}" width="1280" height="853" loading="lazy" decoding="async">
-          <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-md px-4 py-2 rounded-full">
-            <span class="font-label-lg text-label-lg text-on-surface"><strong>$${Number(room.nightlyRate).toLocaleString()}</strong>/night</span>
+  if (!rooms.length) {
+    container.innerHTML = '<p class="py-20 text-center text-on-surface-variant">No rooms are currently available.</p>';
+    return [];
+  }
+
+  let roomIndex = 0;
+  let imageIndex = 0;
+
+  const render = () => {
+    const room = rooms[roomIndex];
+    const images = room.images.length
+      ? room.images
+      : [{
+        id: 0,
+        path: "",
+        alt: room.name,
+        isPrimary: true,
+        displayOrder: 0,
+        url: roomImage(room),
+      }];
+    const image = images[imageIndex] ?? images[0];
+    const hasMultipleImages = images.length > 1;
+    const availabilityClass = room.availableUnits > 0 ? "text-green-700" : "text-error";
+    const availabilityLabel = room.availableUnits > 0
+      ? `${room.availableUnits} of ${room.totalUnits} available`
+      : "Currently unavailable";
+    const price = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: room.currency || "USD",
+      maximumFractionDigits: 0,
+    }).format(Number(room.nightlyRate));
+
+    container.innerHTML = `
+      <article class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+        <div class="order-2 lg:order-1 lg:col-span-5 lg:pr-4">
+          <div class="flex flex-wrap items-center gap-4 mb-8">
+            <h3 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">${escapeHtml(room.name)}</h3>
+            <span class="rounded-full bg-primary px-4 py-2 font-label-lg text-label-lg uppercase tracking-[0.14em] text-on-primary"><strong>${escapeHtml(price)}</strong>/night</span>
+          </div>
+          <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mb-10">${escapeHtml(room.description)}</p>
+          <div class="flex flex-wrap gap-7 mb-7 font-label-lg text-label-lg uppercase tracking-[0.1em] text-primary">
+            <span class="flex items-center gap-2"><span class="material-symbols-outlined" aria-hidden="true">king_bed</span>${room.beds} Bed${room.beds === 1 ? "" : "s"}</span>
+            <span class="flex items-center gap-2"><span class="material-symbols-outlined" aria-hidden="true">bathtub</span>${room.bathrooms} Bathroom${room.bathrooms === 1 ? "" : "s"}</span>
+          </div>
+          <p class="font-body-md text-body-md ${availabilityClass} mb-10">${escapeHtml(availabilityLabel)}</p>
+          <div class="flex flex-wrap gap-4">
+            ${room.availableUnits > 0 ? `<a href="${bookingHref(room)}" class="inline-flex items-center justify-center rounded-full bg-black px-7 py-4 font-label-lg text-label-lg uppercase tracking-[0.14em] text-white transition-colors hover:bg-primary">Book room</a>` : ""}
+            <a href="/rooms#${escapeHtml(room.slug)}-suite" class="inline-flex items-center justify-center rounded-full border border-outline px-7 py-4 font-label-lg text-label-lg uppercase tracking-[0.14em] text-on-surface transition-colors hover:border-primary hover:text-primary">View details</a>
           </div>
         </div>
-        <div class="p-8">
-          <h3 class="font-headline-md text-headline-md text-on-surface mb-6">${escapeHtml(room.name)}</h3>
-          <div class="flex flex-wrap gap-4 text-on-surface-variant">
-            <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">king_bed</span>${room.beds} Bed${room.beds === 1 ? "" : "s"}</span>
-            <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">bathtub</span>${room.bathrooms} Bathroom${room.bathrooms === 1 ? "" : "s"}</span>
+        <div class="order-1 lg:order-2 lg:col-span-7">
+          <div class="relative h-[320px] sm:h-[420px] lg:h-[560px] overflow-hidden rounded-xl bg-surface-container custom-shadow">
+            <img class="h-full w-full object-cover" src="${escapeHtml(image.url)}" alt="${escapeHtml(image.alt || room.name)}" width="1280" height="853" loading="${roomIndex === 0 ? "eager" : "lazy"}" decoding="async">
+            ${hasMultipleImages ? `
+              <button type="button" data-home-room-action="previous-image" class="absolute left-4 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm transition-colors hover:bg-black focus:outline-none focus:ring-2 focus:ring-white" aria-label="Previous ${escapeHtml(room.name)} image">
+                <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+              </button>
+              <button type="button" data-home-room-action="next-image" class="absolute right-4 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm transition-colors hover:bg-black focus:outline-none focus:ring-2 focus:ring-white" aria-label="Next ${escapeHtml(room.name)} image">
+                <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+              </button>
+              <span class="absolute bottom-4 right-4 rounded-full bg-black/60 px-3 py-1.5 font-label-sm text-label-sm text-white backdrop-blur-sm">${imageIndex + 1} / ${images.length}</span>
+            ` : ""}
           </div>
         </div>
-      </a>
-    `).join("")
-    : '<p class="md:col-span-3 text-center text-on-surface-variant">No rooms are currently available.</p>';
+      </article>
+      <div class="mt-14 flex flex-col gap-6 border-t border-surface-variant pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex w-full max-w-xl items-center gap-2" role="group" aria-label="Choose a room package">
+          ${rooms.map((item, index) => `
+            <button type="button" data-home-room-index="${index}" class="group flex-1 py-3" aria-label="View ${escapeHtml(item.name)}" aria-current="${index === roomIndex ? "true" : "false"}">
+              <span class="block h-1.5 rounded-full transition-colors ${index === roomIndex ? "bg-primary" : "bg-surface-variant group-hover:bg-primary/40"}"></span>
+            </button>
+          `).join("")}
+        </div>
+        <div class="flex items-center justify-between gap-5 sm:justify-end">
+          <span class="font-label-lg text-label-lg text-on-surface-variant"><strong class="text-on-surface">${String(roomIndex + 1).padStart(2, "0")}</strong> / ${String(rooms.length).padStart(2, "0")}</span>
+          <div class="flex gap-3">
+            <button type="button" data-home-room-action="previous-room" class="flex h-12 w-12 items-center justify-center rounded-full border border-outline text-on-surface transition-colors hover:border-primary hover:bg-primary hover:text-white" aria-label="Previous room package"><span class="material-symbols-outlined" aria-hidden="true">arrow_back</span></button>
+            <button type="button" data-home-room-action="next-room" class="flex h-12 w-12 items-center justify-center rounded-full border border-outline bg-on-background text-white transition-colors hover:bg-primary" aria-label="Next room package"><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button>
+          </div>
+        </div>
+      </div>
+    `;
+  };
+
+  const clickHandler = (event: Event) => {
+    const button = (event.target as HTMLElement).closest<HTMLButtonElement>("button");
+    if (!button || !container.contains(button)) return;
+
+    const requestedRoomIndex = button.dataset.homeRoomIndex;
+    if (requestedRoomIndex !== undefined) {
+      roomIndex = Number(requestedRoomIndex);
+      imageIndex = 0;
+      render();
+      return;
+    }
+
+    const action = button.dataset.homeRoomAction;
+    if (!action) return;
+    const imageCount = Math.max(rooms[roomIndex].images.length, 1);
+    if (action === "previous-image") imageIndex = (imageIndex - 1 + imageCount) % imageCount;
+    if (action === "next-image") imageIndex = (imageIndex + 1) % imageCount;
+    if (action === "previous-room") {
+      roomIndex = (roomIndex - 1 + rooms.length) % rooms.length;
+      imageIndex = 0;
+    }
+    if (action === "next-room") {
+      roomIndex = (roomIndex + 1) % rooms.length;
+      imageIndex = 0;
+    }
+    render();
+  };
+
+  render();
+  container.addEventListener("click", clickHandler);
+  return [() => container.removeEventListener("click", clickHandler)];
 }
 
 function addListener<K extends keyof WindowEventMap>(
@@ -244,7 +340,7 @@ function setupIndexPage(): Cleanup[] {
   void fetchJson<{ rooms: PublicRoom[] }>("/api/rooms", {
     signal: roomsController.signal,
   })
-    .then(({ rooms }) => renderHomepageRooms(rooms))
+    .then(({ rooms }) => cleanups.push(...renderHomepageRooms(rooms)))
     .catch((error) => {
       if ((error as Error).name !== "AbortError") {
         console.error("Homepage rooms failed to load", error);

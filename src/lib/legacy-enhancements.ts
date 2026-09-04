@@ -151,7 +151,6 @@ function renderHomepageRooms(rooms: PublicRoom[]): Cleanup[] {
           <p class="font-body-md text-body-md ${availabilityClass} mb-10">${escapeHtml(availabilityLabel)}</p>
           <div class="flex flex-wrap gap-4">
             ${room.availableUnits > 0 ? `<a href="${bookingHref(room)}" class="inline-flex items-center justify-center rounded-full bg-black px-7 py-4 font-label-lg text-label-lg uppercase tracking-[0.14em] text-white transition-colors hover:bg-primary">Book room</a>` : ""}
-            <a href="/rooms#${escapeHtml(room.slug)}-suite" class="inline-flex items-center justify-center rounded-full border border-outline px-7 py-4 font-label-lg text-label-lg uppercase tracking-[0.14em] text-on-surface transition-colors hover:border-primary hover:text-primary">View details</a>
           </div>
         </div>
         <div class="order-1 lg:order-2 lg:col-span-7">
@@ -177,8 +176,7 @@ function renderHomepageRooms(rooms: PublicRoom[]): Cleanup[] {
             </button>
           `).join("")}
         </div>
-        <div class="flex items-center justify-between gap-5 sm:justify-end">
-          <span class="font-label-lg text-label-lg text-on-surface-variant"><strong class="text-on-surface">${String(roomIndex + 1).padStart(2, "0")}</strong> / ${String(rooms.length).padStart(2, "0")}</span>
+        <div class="flex items-center justify-end gap-5">
           <div class="flex gap-3">
             <button type="button" data-home-room-action="previous-room" class="flex h-12 w-12 items-center justify-center rounded-full border border-outline text-on-surface transition-colors hover:border-primary hover:bg-primary hover:text-white" aria-label="Previous room package"><span class="material-symbols-outlined" aria-hidden="true">arrow_back</span></button>
             <button type="button" data-home-room-action="next-room" class="flex h-12 w-12 items-center justify-center rounded-full border border-outline bg-on-background text-white transition-colors hover:bg-primary" aria-label="Next room package"><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button>
@@ -599,6 +597,31 @@ function setupRoomsPage(): Cleanup[] {
   const container = document.getElementById("roomsCatalog");
   if (!container) return cleanups;
 
+  const roomGalleries = new Map<number, { images: PublicRoomImage[]; index: number }>();
+  const galleryClickHandler = (event: Event) => {
+    const button = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-room-gallery-action]");
+    if (!button || !container.contains(button)) return;
+
+    const roomId = Number(button.dataset.roomId);
+    const gallery = roomGalleries.get(roomId);
+    if (!gallery || gallery.images.length < 2) return;
+
+    gallery.index = button.dataset.roomGalleryAction === "previous"
+      ? (gallery.index - 1 + gallery.images.length) % gallery.images.length
+      : (gallery.index + 1) % gallery.images.length;
+
+    const galleryElement = container.querySelector<HTMLElement>(`[data-room-gallery="${roomId}"]`);
+    const imageElement = galleryElement?.querySelector<HTMLImageElement>("[data-room-gallery-image]");
+    const counterElement = galleryElement?.querySelector<HTMLElement>("[data-room-gallery-counter]");
+    const image = gallery.images[gallery.index];
+    if (imageElement) {
+      imageElement.src = image.url;
+      imageElement.alt = image.alt;
+    }
+    if (counterElement) counterElement.textContent = `${gallery.index + 1} / ${gallery.images.length}`;
+  };
+  cleanups.push(addListener(container, "click", galleryClickHandler));
+
   const controller = new AbortController();
   cleanups.push(() => controller.abort());
   const params = new URLSearchParams(window.location.search);
@@ -638,11 +661,12 @@ function setupRoomsPage(): Cleanup[] {
           path: "",
         }];
       const primary = images.find((image) => image.isPrimary) ?? images[0];
-      const secondary = images.filter((image) => image.id !== primary.id).slice(0, 2);
+      const galleryImages = [primary, ...images.filter((image) => image.id !== primary.id)];
+      roomGalleries.set(room.id, { images: galleryImages, index: 0 });
       const soldOut = room.availableUnits < requiredRooms;
       return `
-        <section id="${escapeHtml(room.slug)}-suite" class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center ${index ? "pt-24" : ""}">
-          <div class="lg:col-span-5 ${index % 2 ? "lg:order-2 lg:pl-12" : "order-2 lg:order-1"} space-y-8">
+        <section id="${escapeHtml(room.slug)}-suite" class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center ${index ? "mt-24 border-t border-surface-variant pt-24" : ""}">
+          <div class="order-2 lg:order-1 lg:col-span-5 space-y-8">
             <div class="flex items-center gap-3 flex-wrap">
               <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg">${escapeHtml(room.name)}</h2>
               <span class="font-label-lg text-label-lg text-on-primary bg-primary px-3 py-1.5 rounded-full uppercase tracking-[0.16em]"><strong>$${Number(room.nightlyRate).toLocaleString()}</strong>/night</span>
@@ -657,11 +681,19 @@ function setupRoomsPage(): Cleanup[] {
               ? '<span class="inline-flex rounded-full px-5 py-3 bg-surface-container text-on-surface-variant">Not enough rooms for this party</span>'
               : `<a href="${bookingHref(room, arrival, departure, adults, children)}" class="group font-label-sm text-label-sm uppercase tracking-[0.16em] text-on-primary bg-black rounded-full px-5 py-3 hover:bg-primary transition-all flex items-center w-fit">Book ${requiredRooms > 1 ? `${requiredRooms} rooms` : "room"}</a>`}
           </div>
-          <div class="lg:col-span-7 ${index % 2 ? "lg:order-1" : "order-1 lg:order-2"} grid grid-cols-2 gap-4">
-            <div class="relative col-span-2 w-full h-[400px] overflow-hidden dome-shape rounded-b-xl shadow-sm">
-              <img class="w-full h-full object-cover" alt="${escapeHtml(primary.alt)}" src="${escapeHtml(primary.url)}" width="1280" height="853" loading="${index === 0 ? "eager" : "lazy"}" fetchpriority="${index === 0 ? "high" : "low"}" decoding="async">
+          <div class="order-1 lg:order-2 lg:col-span-7" data-room-gallery="${room.id}">
+            <div class="relative h-[320px] sm:h-[460px] lg:h-[560px] w-full overflow-hidden rounded-xl bg-surface-container shadow-sm">
+              <img data-room-gallery-image class="h-full w-full object-cover" alt="${escapeHtml(primary.alt)}" src="${escapeHtml(primary.url)}" width="1280" height="853" loading="${index === 0 ? "eager" : "lazy"}" fetchpriority="${index === 0 ? "high" : "low"}" decoding="async">
+              ${galleryImages.length > 1 ? `
+                <button type="button" data-room-gallery-action="previous" data-room-id="${room.id}" class="absolute left-4 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-sm transition-colors hover:bg-black focus:outline-none focus:ring-2 focus:ring-white" aria-label="Previous ${escapeHtml(room.name)} image">
+                  <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+                </button>
+                <button type="button" data-room-gallery-action="next" data-room-id="${room.id}" class="absolute right-4 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-sm transition-colors hover:bg-black focus:outline-none focus:ring-2 focus:ring-white" aria-label="Next ${escapeHtml(room.name)} image">
+                  <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                </button>
+                <span data-room-gallery-counter class="absolute bottom-4 right-4 rounded-full bg-black/65 px-3 py-1.5 font-label-sm text-label-sm text-white backdrop-blur-sm">1 / ${galleryImages.length}</span>
+              ` : ""}
             </div>
-            ${secondary.map((image) => `<img class="w-full h-[250px] object-cover rounded-xl shadow-sm" alt="${escapeHtml(image.alt)}" src="${escapeHtml(image.url)}" width="640" height="400" loading="lazy" decoding="async">`).join("")}
           </div>
         </section>
       `;

@@ -1,17 +1,13 @@
 import { readPositiveInteger } from "@/lib/api";
+import {
+  canManuallyTransitionBookingStatus,
+  isBookingStatus,
+} from "@/lib/booking-status";
 import { requireAdminSession } from "@/lib/supabase/auth";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
 };
-
-const bookingStatuses = new Set([
-  "pending",
-  "confirmed",
-  "rejected",
-  "cancelled",
-  "completed",
-]);
 
 export async function PATCH(request: Request, { params }: RouteContext) {
   const auth = await requireAdminSession();
@@ -20,8 +16,28 @@ export async function PATCH(request: Request, { params }: RouteContext) {
   const body = await request.json();
   const status = typeof body.status === "string" ? body.status.toLowerCase() : "";
 
-  if (!bookingStatuses.has(status)) {
+  if (!isBookingStatus(status)) {
     return Response.json({ error: "Choose a valid booking status." }, { status: 400 });
+  }
+
+  const { data: currentBooking, error: currentBookingError } = await auth.session.supabase
+    .from("bookings")
+    .select("id, status")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (currentBookingError) {
+    console.error("Admin booking lookup failed", currentBookingError);
+    return Response.json({ error: "Booking could not be loaded." }, { status: 500 });
+  }
+  if (!currentBooking) {
+    return Response.json({ error: "Booking not found." }, { status: 404 });
+  }
+  if (!canManuallyTransitionBookingStatus(currentBooking.status, status)) {
+    return Response.json(
+      { error: `A ${currentBooking.status} booking cannot be changed to ${status}.` },
+      { status: 409 },
+    );
   }
 
   const adminNotes = typeof body.adminNotes === "string"
@@ -34,8 +50,9 @@ export async function PATCH(request: Request, { params }: RouteContext) {
       ...(adminNotes !== undefined ? { admin_notes: adminNotes } : {}),
     })
     .eq("id", id)
+    .eq("status", currentBooking.status)
     .select("*, room_types(name, slug)")
-    .single();
+    .maybeSingle();
 
   if (error) {
     if (error.message.includes("ROOM_SOLD_OUT")) {
@@ -52,6 +69,12 @@ export async function PATCH(request: Request, { params }: RouteContext) {
     }
     console.error("Admin booking update failed", error);
     return Response.json({ error: "Booking could not be updated." }, { status: 500 });
+  }
+  if (!data) {
+    return Response.json(
+      { error: "This booking changed while you were editing it. Refresh and try again." },
+      { status: 409 },
+    );
   }
 
   return Response.json({ booking: data });

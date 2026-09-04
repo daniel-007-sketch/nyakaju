@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import { BOOKING_STATUSES, getManualBookingStatusOptions } from "@/lib/booking-status";
 import { createClient } from "@/lib/supabase/client";
 import styles from "./AdminDashboard.module.css";
 
@@ -23,7 +24,7 @@ async function getJson<T>(url:string, init?:RequestInit):Promise<T>{
   if(!response.ok) throw new Error(body.error||"Request failed");
   return body;
 }
-const statuses=["pending","confirmed","rejected","cancelled","completed"];
+const statuses=BOOKING_STATUSES;
 
 export function AdminDashboard(){
   const [view,setView]=useState<"overview"|"bookings"|"rooms">("overview");
@@ -95,7 +96,7 @@ export function AdminDashboard(){
           <div className={styles.toolbar}><input className={styles.search} value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search guest, phone or code" aria-label="Search bookings"/><select className={styles.select} value={status} onChange={e=>setStatus(e.target.value)} aria-label="Filter by status"><option value="">All statuses</option>{statuses.map(s=><option key={s}>{s}</option>)}</select></div>
         </div>
         <div className={styles.tableWrap}><table className={styles.table}><thead><tr><th>Guest & contact</th><th>Room</th><th>Stay</th><th>Value</th><th>Status</th><th>Created</th><th></th></tr></thead><tbody>
-          {(view==="overview"?filtered.slice(0,8):filtered).map(b=><tr key={b.id}><td><div className={styles.primary}>{b.guest_first_name} {b.guest_last_name}</div><div className={styles.muted}>{b.guest_email}<br/>{b.guest_phone}</div></td><td><div className={styles.primary}>{b.room_types?.name??"Unknown room"}</div><div className={styles.muted}>{b.confirmation_code}</div></td><td>{b.arrival_date}<br/><span className={styles.muted}>to {b.departure_date}</span></td><td className={styles.amount}>{money(Number(b.total_amount),b.currency)}<div className={styles.muted}>{money(Number(b.nightly_rate),b.currency)}/night</div></td><td><select className={styles.status} value={b.status} onChange={e=>void updateBooking(b,e.target.value)} aria-label={`Status for ${b.confirmation_code}`}>{statuses.map(s=><option key={s}>{s}</option>)}</select></td><td>{new Date(b.created_at).toLocaleDateString()}<div className={styles.muted}>{new Date(b.created_at).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})}</div></td><td><button className={styles.details} onClick={()=>setSelected(b)}>View all</button></td></tr>)}
+          {(view==="overview"?filtered.slice(0,8):filtered).map(b=><tr key={b.id}><td><div className={styles.primary}>{b.guest_first_name} {b.guest_last_name}</div><div className={styles.muted}>{b.guest_email}<br/>{b.guest_phone}</div></td><td><div className={styles.primary}>{b.room_types?.name??"Unknown room"}</div><div className={styles.muted}>{b.confirmation_code}</div></td><td>{b.arrival_date}<br/><span className={styles.muted}>to {b.departure_date}</span></td><td className={styles.amount}>{money(Number(b.total_amount),b.currency)}<div className={styles.muted}>{money(Number(b.nightly_rate),b.currency)}/night</div></td><td><select className={styles.status} value={b.status} disabled={getManualBookingStatusOptions(b.status).length < 2} onChange={e=>void updateBooking(b,e.target.value)} aria-label={`Status for ${b.confirmation_code}`}>{getManualBookingStatusOptions(b.status).map(s=><option key={s}>{s}</option>)}</select></td><td>{new Date(b.created_at).toLocaleDateString()}<div className={styles.muted}>{new Date(b.created_at).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})}</div></td><td><button className={styles.details} onClick={()=>setSelected(b)}>View all</button></td></tr>)}
         </tbody></table>{!loading&&!filtered.length&&<div className={styles.empty}>No matching bookings found.</div>}</div>
       </section>}
       {view==="rooms"&&<section className={styles.rooms}>{rooms.map(room=>{const image=room.room_images.find(i=>i.is_primary)??room.room_images[0];return <article className={styles.room} key={room.id}>{image?<Image unoptimized width={480} height={320} className={styles.roomImg} src={imageUrl(image.storage_path)} alt={image.alt_text||room.name}/>:<div className={styles.roomImg}/>}<div className={styles.roomBody}><div className={styles.eyebrow}>{room.is_active?"Active":"Inactive"} · {room.slug}</div><h2 className={styles.roomTitle}>{room.name}</h2><div className={styles.muted}>{room.description}</div><div className={styles.roomFacts}><div className={styles.roomFact}><strong>{room.total_units}</strong>units</div><div className={styles.roomFact}><strong>{room.beds}</strong>beds</div><div className={styles.roomFact}><strong>{money(Number(room.nightly_rate),room.currency)}</strong>night</div></div></div></article>})}</section>}

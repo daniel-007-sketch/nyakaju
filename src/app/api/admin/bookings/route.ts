@@ -5,9 +5,8 @@ import {
   readPositiveInteger,
   todayIsoDate,
 } from "@/lib/api";
+import { BOOKING_STATUSES } from "@/lib/booking-status";
 import { requireAdminSession } from "@/lib/supabase/auth";
-
-const creatableStatuses = new Set(["pending", "confirmed"]);
 
 export async function POST(request: Request) {
   const auth = await requireAdminSession();
@@ -23,13 +22,9 @@ export async function POST(request: Request) {
     const phone = readNonEmptyString(body.phone, "Phone", 50);
     const arrival = body.arrival;
     const departure = body.departure;
-    const status = typeof body.status === "string" ? body.status.toLowerCase() : "confirmed";
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       throw new Error("Enter a valid email address.");
-    }
-    if (!creatableStatuses.has(status)) {
-      throw new Error("A new booking must be pending or confirmed.");
     }
     if (!isIsoDate(arrival) || !isIsoDate(departure) || departure <= arrival || arrival < todayIsoDate()) {
       throw new Error("Choose a valid arrival date and a later departure date.");
@@ -90,7 +85,7 @@ export async function POST(request: Request) {
         arrival_date: arrival,
         departure_date: departure,
         room_count: roomCount,
-        status,
+        status: "pending",
         nightly_rate: room.nightly_rate,
         total_amount: Number(room.nightly_rate) * nights * roomCount,
         currency: room.currency,
@@ -123,8 +118,7 @@ export async function GET(request: Request) {
   const search = (url.searchParams.get("search") ?? "").trim().toLowerCase();
   const status = (url.searchParams.get("status") ?? "").trim().toLowerCase();
 
-  const validStatus = status
-    && ["pending", "confirmed", "rejected", "cancelled", "completed"].includes(status);
+  const validStatus = status && BOOKING_STATUSES.includes(status as (typeof BOOKING_STATUSES)[number]);
   const data = [];
   const pageSize = 1_000;
 

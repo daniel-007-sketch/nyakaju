@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { BOOKING_STATUSES, getManualBookingStatusOptions } from "@/lib/booking-status";
 import styles from "./AdminBookings.module.css";
 
 type Booking = {
@@ -38,7 +39,7 @@ type AvailableRoom = {
   availableUnits: number;
 };
 
-const statuses = ["pending", "confirmed", "rejected", "cancelled", "completed"];
+const statuses = BOOKING_STATUSES;
 
 async function requestJson<T>(url: string, init?: RequestInit): Promise<T> {
   const response = await fetch(url, init);
@@ -256,7 +257,6 @@ export function AdminBookings() {
           roomCount: formData.get("roomCount"),
           arrival: formData.get("arrival"),
           departure: formData.get("departure"),
-          status: formData.get("status"),
         }),
       });
       form.reset();
@@ -346,7 +346,7 @@ export function AdminBookings() {
                   <td><strong>{booking.room_types?.name ?? "Unknown room"}</strong><span>{booking.room_count} room{booking.room_count === 1 ? "" : "s"} · {booking.confirmation_code}</span></td>
                   <td><strong>{date(booking.arrival_date)} – {date(booking.departure_date)}</strong><span>{nights(booking)} night{nights(booking) === 1 ? "" : "s"}</span></td>
                   <td><strong>{money(booking.total_amount, booking.currency)}</strong><span>{money(booking.nightly_rate, booking.currency)} per night</span></td>
-                  <td><select className={styles.status} data-status={booking.status} value={booking.status} disabled={saving} onChange={(event) => void updateBooking(booking, event.target.value)} aria-label={`Status for ${booking.confirmation_code}`}>{statuses.map((item) => <option key={item} value={item}>{item[0].toUpperCase() + item.slice(1)}</option>)}</select></td>
+                  <td><select className={styles.status} data-status={booking.status} value={booking.status} disabled={saving || getManualBookingStatusOptions(booking.status).length < 2} onChange={(event) => void updateBooking(booking, event.target.value)} aria-label={`Status for ${booking.confirmation_code}`}>{getManualBookingStatusOptions(booking.status).map((item) => <option key={item} value={item}>{item[0].toUpperCase() + item.slice(1)}</option>)}</select></td>
                   <td><strong>Booked {dateTime(booking.created_at)}</strong><span>{booking.confirmed_at ? `Confirmed ${dateTime(booking.confirmed_at)}` : "Not yet confirmed"}</span></td>
                   <td><button className={styles.viewButton} onClick={() => setSelected(booking)}>View details</button></td>
                 </tr>)}
@@ -363,7 +363,7 @@ export function AdminBookings() {
     {createOpen ? <div className={styles.backdrop} onMouseDown={(event) => { if (event.target === event.currentTarget && !creating) closeCreateBooking(); }}>
       <section className={`${styles.drawer} ${styles.createDrawer}`} role="dialog" aria-modal="true" aria-labelledby="createBookingTitle">
         <div className={styles.drawerHeader}><div><p className={styles.eyebrow}>Direct database entry</p><h2 id="createBookingTitle">Add booking</h2></div><button type="button" disabled={creating} onClick={closeCreateBooking} aria-label="Close booking form">×</button></div>
-        <p className={styles.createIntro}>Enter the guest and stay details. Confirmed bookings immediately reserve inventory and appear in dashboard reporting.</p>
+        <p className={styles.createIntro}>Enter the guest and stay details. Every new booking starts as pending and can be confirmed after payment is received.</p>
         {error ? <div className={styles.error} role="alert">{error}</div> : null}
         <form className={styles.createForm} onSubmit={(event) => void createBooking(event)}>
           <label><span>First name</span><input name="firstName" type="text" maxLength={100} autoComplete="given-name" required autoFocus/></label>
@@ -374,7 +374,6 @@ export function AdminBookings() {
           <label><span>Arrival</span><input name="arrival" type="date" min={new Date().toLocaleDateString("en-CA")} value={createArrival} onChange={(event) => { const value = event.target.value; setCreateArrival(value); setCreateAvailableUnits(null); void checkCreateAvailability(createRoomId, value, createDeparture); }} required/></label>
           <label><span>Departure</span><input name="departure" type="date" min={new Date().toLocaleDateString("en-CA")} value={createDeparture} onChange={(event) => { const value = event.target.value; setCreateDeparture(value); setCreateAvailableUnits(null); void checkCreateAvailability(createRoomId, createArrival, value); }} required/></label>
           <label><span>Number of rooms</span><input name="roomCount" type="number" min="1" max={Math.max(1, createRoomLimit)} step="1" value={createRoomCount} disabled={!createRoomId || createRoomLimit === 0 || checkingAvailability} onChange={(event) => setCreateRoomCount(Math.min(Math.max(1, Number(event.target.value)), Math.max(1, createRoomLimit)))} required/><small className={styles.availabilityHelp}>{checkingAvailability ? "Checking live availability…" : createAvailableUnits !== null ? `${createAvailableUnits} room${createAvailableUnits === 1 ? "" : "s"} available for these dates.` : selectedCreateRoom ? `Up to ${selectedCreateRoom.total_units} rooms in this package. Choose dates for live availability.` : "Select a room package first."}</small></label>
-          <label><span>Initial status</span><select name="status" defaultValue="confirmed"><option value="confirmed">Confirmed</option><option value="pending">Pending</option></select></label>
           <div className={`${styles.createActions} ${styles.fullField}`}><button type="button" className={styles.cancelCreate} disabled={creating} onClick={closeCreateBooking}>Cancel</button><button type="submit" className={styles.save} disabled={creating || checkingAvailability || rooms.length === 0 || createAvailableUnits === 0}>{creating ? "Creating booking…" : "Create booking"}</button></div>
         </form>
       </section>
@@ -391,7 +390,7 @@ export function AdminBookings() {
           ["Total", money(selected.total_amount, selected.currency)], ["Booked", dateTime(selected.created_at)],
           ["Confirmed", dateTime(selected.confirmed_at)],
         ].map(([label, value]) => <div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div>
-        <label className={styles.drawerField}><span>Status</span><select value={selected.status} onChange={(event) => setSelected({ ...selected, status: event.target.value })}>{statuses.map((item) => <option key={item} value={item}>{item[0].toUpperCase() + item.slice(1)}</option>)}</select></label>
+        <label className={styles.drawerField}><span>Status</span><select value={selected.status} disabled={getManualBookingStatusOptions(selected.status).length < 2} onChange={(event) => setSelected({ ...selected, status: event.target.value })}>{getManualBookingStatusOptions(selected.status).map((item) => <option key={item} value={item}>{item[0].toUpperCase() + item.slice(1)}</option>)}</select></label>
         <label className={styles.drawerField}><span>Admin notes</span><textarea value={selected.admin_notes ?? ""} placeholder="Add internal notes about this booking" onChange={(event) => setSelected({ ...selected, admin_notes: event.target.value })}/></label>
         <button className={styles.save} disabled={saving} onClick={() => void updateBooking(selected, selected.status, selected.admin_notes ?? "")}>{saving ? "Saving…" : "Save booking changes"}</button>
       </section>

@@ -1,4 +1,5 @@
 import { requireAdminSession } from "@/lib/supabase/auth";
+import { BOOKING_STATUSES } from "@/lib/booking-status";
 
 const HOTEL_TIME_ZONE_OFFSET = "+03:00";
 const HOTEL_TIME_ZONE_OFFSET_MS = 3 * 60 * 60 * 1_000;
@@ -162,7 +163,7 @@ export async function GET(request: Request) {
     0,
   );
   const statusCounts = Object.fromEntries(
-    ["pending", "confirmed", "rejected", "cancelled", "completed"].map((status) => [
+    BOOKING_STATUSES.map((status) => [
       status,
       (statusResult.data ?? []).filter((booking) => booking.status === status).length,
     ]),

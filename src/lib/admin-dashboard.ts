@@ -1,6 +1,7 @@
 "use client";
 
 import { createClient as createBrowserSupabaseClient } from "@/lib/supabase/client";
+import { getManualBookingStatusOptions } from "@/lib/booking-status";
 
 type Cleanup = () => void;
 
@@ -414,6 +415,7 @@ export function setupSupabaseAdminDashboard(): Cleanup[] {
         const confirmedTimeline = booking.confirmed_at
           ? `Confirmed ${dateTimeFormatter.format(new Date(booking.confirmed_at))}`
           : "Not yet confirmed";
+        const statusOptions = getManualBookingStatusOptions(booking.status);
         return `
           <tr data-id="${booking.id}" data-confirmation="${escapeHtml(booking.confirmation_code)}">
             <td><strong>${escapeHtml(`${booking.guest_first_name} ${booking.guest_last_name}`)}</strong><span>${escapeHtml(booking.guest_email)}</span><span>${escapeHtml(booking.guest_phone)}</span></td>
@@ -421,8 +423,8 @@ export function setupSupabaseAdminDashboard(): Cleanup[] {
             <td><strong>${dateFormatter.format(new Date(`${booking.arrival_date}T00:00:00Z`))} – ${dateFormatter.format(new Date(`${booking.departure_date}T00:00:00Z`))}</strong><span>${nights} night${nights === 1 ? "" : "s"}</span></td>
             <td><strong>${money.format(Number(booking.total_amount))}</strong><span>${money.format(Number(booking.nightly_rate))} per night</span></td>
             <td>
-              <select class="booking-status" data-status="${escapeHtml(booking.status)}" aria-label="Status for ${escapeHtml(booking.confirmation_code)}">
-                ${["pending", "confirmed", "rejected", "cancelled", "completed"].map((status) => `<option value="${status}"${booking.status === status ? " selected" : ""}>${status[0].toUpperCase()}${status.slice(1)}</option>`).join("")}
+              <select class="booking-status" data-status="${escapeHtml(booking.status)}" aria-label="Status for ${escapeHtml(booking.confirmation_code)}"${statusOptions.length < 2 ? " disabled" : ""}>
+                ${statusOptions.map((status) => `<option value="${status}"${booking.status === status ? " selected" : ""}>${status[0].toUpperCase()}${status.slice(1)}</option>`).join("")}
               </select>
             </td>
             <td><strong>Booked ${dateTimeFormatter.format(new Date(booking.created_at))}</strong><span>${confirmedTimeline}</span></td>

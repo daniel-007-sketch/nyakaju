@@ -43,7 +43,7 @@ export function LegacyPage({
 
   return (
     <>
-      <SiteIntro key={pageId} />
+      {pageId === "index" ? <SiteIntro /> : null}
       {stylesheetHrefs.map((href) => (
         <link href={href} key={href} rel="stylesheet" />
       ))}

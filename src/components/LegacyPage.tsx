@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import type { LegacyPageId } from "@/lib/legacy";
 import { setupLegacyEnhancements } from "@/lib/legacy-enhancements";
 import { LegacyChrome } from "@/components/LegacyChrome";
+import { SiteIntro } from "@/components/SiteIntro";
 
 type LegacyPageProps = {
   pageId: LegacyPageId;
@@ -42,6 +43,7 @@ export function LegacyPage({
 
   return (
     <>
+      <SiteIntro key={pageId} />
       {stylesheetHrefs.map((href) => (
         <link href={href} key={href} rel="stylesheet" />
       ))}

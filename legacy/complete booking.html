@@ -215,21 +215,24 @@
 </div>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-<div class="relative">
-<label class="form-label block mb-2" for="arrivalDate">Arrival Date</label>
-<input class="form-input font-body-lg text-body-lg text-on-surface" id="arrivalDate" name="arrivalDate" required="" type="date">
+<div id="bookingFormPicker" class="booking-picker booking-picker--form" data-booking-date-placeholder="Arrival - Departure" data-booking-guest-placeholder="Adults | Children | Rooms">
+<div class="booking-picker__triggers">
+<button id="bookingDateTrigger" class="booking-picker__trigger" type="button" aria-expanded="false" aria-controls="bookingCalendarPopover">
+<span class="material-symbols-outlined booking-picker__trigger-icon" aria-hidden="true">calendar_month</span>
+<span class="booking-picker__trigger-copy"><span class="booking-picker__eyebrow">Select dates</span><span class="booking-picker__summary" data-booking-date-summary>Arrival - Departure</span></span>
+<span class="material-symbols-outlined booking-picker__chevron" aria-hidden="true">expand_more</span>
+</button>
+<button id="bookingGuestTrigger" class="booking-picker__trigger" type="button" aria-expanded="false" aria-controls="bookingGuestPopover">
+<span class="material-symbols-outlined booking-picker__trigger-icon" aria-hidden="true">person</span>
+<span class="booking-picker__trigger-copy"><span class="booking-picker__eyebrow">Select occupancy</span><span class="booking-picker__summary" data-booking-guest-summary>Adults | Children | Rooms</span></span>
+<span class="material-symbols-outlined booking-picker__chevron" aria-hidden="true">expand_more</span>
+</button>
 </div>
-<div class="relative">
-<label class="form-label block mb-2" for="departureDate">Departure Date</label>
-<input class="form-input font-body-lg text-body-lg text-on-surface" id="departureDate" name="departureDate" required="" type="date">
-</div>
-</div>
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-<div class="relative">
-<label class="form-label block mb-2" for="bookingAdultsCount">Adults</label>
-<select class="form-input font-body-lg text-body-lg text-on-surface" id="bookingAdultsCount" name="adults" required="" aria-describedby="roomCountHelp">
+<div id="bookingCalendarPopover" class="booking-popover booking-calendar-popover hidden" data-booking-calendar-popover></div>
+<div id="bookingGuestPopover" class="booking-popover booking-guest-popover hidden" data-booking-guest-popover></div>
+<input class="booking-native-field" id="arrivalDate" name="arrivalDate" required="" type="date" aria-label="Arrival date" tabindex="-1">
+<input class="booking-native-field" id="departureDate" name="departureDate" required="" type="date" aria-label="Departure date" tabindex="-1">
+<select class="booking-native-field" id="bookingAdultsCount" name="adults" required="" aria-describedby="roomCountHelp" aria-label="Number of adults" tabindex="-1">
 <option value="1">1</option>
 <option value="2">2</option>
 <option value="3">3</option>
@@ -239,10 +242,7 @@
 <option value="7">7</option>
 <option value="8">8</option>
 </select>
-</div>
-<div class="relative">
-<label class="form-label block mb-2" for="bookingChildrenCount">Children</label>
-<select class="form-input font-body-lg text-body-lg text-on-surface" id="bookingChildrenCount" name="children" aria-describedby="roomCountHelp">
+<select class="booking-native-field" id="bookingChildrenCount" name="children" aria-describedby="roomCountHelp" aria-label="Number of children" tabindex="-1">
 <option value="0">0</option>
 <option value="1">1</option>
 <option value="2">2</option>
@@ -253,12 +253,7 @@
 <option value="7">7</option>
 <option value="8">8</option>
 </select>
-</div>
-</div>
-
-<div class="relative">
-<label class="form-label block mb-2" for="roomCount">Number of Rooms</label>
-<select class="form-input font-body-lg text-body-lg text-on-surface" id="roomCount" name="roomCount" required="">
+<select class="booking-native-field" id="roomCount" name="roomCount" required="" aria-label="Number of rooms" tabindex="-1">
 <option value="1">1</option>
 </select>
 <p id="roomCountHelp" class="mt-2 font-body-sm text-on-surface-variant" aria-live="polite">Choose dates to see live availability.</p>

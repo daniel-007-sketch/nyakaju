@@ -338,33 +338,24 @@
 
 <!-- Availability Bar -->
 <div class="w-full max-w-4xl bg-surface p-2 rounded-full flex flex-col md:flex-row items-stretch md:items-center custom-shadow transition-all duration-1000 delay-900 opacity-100 translate-y-0 absolute bottom-12 left-1/2 -translate-x-1/2 mx-auto" id="hero-bar">
-<div class="availability-field flex-1 flex px-2 py-0.5 border-r border-surface-variant hover:bg-surface-container-low transition-colors rounded-l-full cursor-pointer group">
-<div class="text-left">
-<label class="block font-label-sm text-label-sm text-on-surface-variant uppercase mb-1" for="arrival-date">Arrival</label>
-<div class="date-input-shell">
-<input id="arrival-date" class="font-body-md text-body-md font-semibold bg-transparent border-0 p-0 m-0 focus:outline-none focus:ring-0" type="date" aria-label="Select arrival date" required>
-<span class="date-input-placeholder" aria-hidden="true">mm/dd/yyyy</span>
-<span class="material-symbols-outlined date-input-icon" aria-hidden="true">calendar_month</span>
+<div id="homeBookingPicker" class="booking-picker booking-picker--home" data-booking-date-placeholder="Arrival - Departure" data-booking-guest-placeholder="Adults | Children | Rooms">
+<div class="booking-picker__triggers">
+<button id="homeDateTrigger" class="booking-picker__trigger" type="button" aria-expanded="false" aria-controls="homeCalendarPopover">
+<span class="material-symbols-outlined booking-picker__trigger-icon" aria-hidden="true">calendar_month</span>
+<span class="booking-picker__trigger-copy"><span class="booking-picker__eyebrow">Select dates</span><span class="booking-picker__summary" data-booking-date-summary>Arrival - Departure</span></span>
+<span class="material-symbols-outlined booking-picker__chevron" aria-hidden="true">expand_more</span>
+</button>
+<button id="homeGuestTrigger" class="booking-picker__trigger" type="button" aria-expanded="false" aria-controls="homeGuestPopover">
+<span class="material-symbols-outlined booking-picker__trigger-icon" aria-hidden="true">person</span>
+<span class="booking-picker__trigger-copy"><span class="booking-picker__eyebrow">Select occupancy</span><span class="booking-picker__summary" data-booking-guest-summary>Adults | Children | Rooms</span></span>
+<span class="material-symbols-outlined booking-picker__chevron" aria-hidden="true">expand_more</span>
+</button>
 </div>
-</div>
-</div>
-<div class="availability-field flex-1 flex px-2 py-0.5 border-r border-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer">
-<div class="text-left">
-<label class="block font-label-sm text-label-sm text-on-surface-variant uppercase mb-1" for="departure-date">Departure</label>
-<div class="date-input-shell">
-<input id="departure-date" class="font-body-md text-body-md font-semibold bg-transparent border-0 p-0 m-0 focus:outline-none focus:ring-0" type="date" aria-label="Select departure date" required>
-<span class="date-input-placeholder" aria-hidden="true">mm/dd/yyyy</span>
-<span class="material-symbols-outlined date-input-icon" aria-hidden="true">calendar_month</span>
-</div>
-</div>
-</div>
-<div class="availability-field flex-1 flex px-2 py-0.5 border-r border-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer">
-<div class="text-left">
-<label class="block font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Guests</label>
-<div class="guest-controls flex items-center gap-4">
-<div class="flex items-center gap-2">
-<label class="font-label-sm text-label-sm text-on-surface-variant" for="adults-count">Adults</label>
-<select id="adults-count" class="font-body-md text-body-md font-semibold bg-transparent border-0 p-0 m-0 pr-10 focus:outline-none focus:ring-0" aria-label="Select number of adults">
+<div id="homeCalendarPopover" class="booking-popover booking-calendar-popover hidden" data-booking-calendar-popover></div>
+<div id="homeGuestPopover" class="booking-popover booking-guest-popover hidden" data-booking-guest-popover></div>
+<input id="arrival-date" class="booking-native-field" type="date" aria-label="Arrival date" tabindex="-1" required>
+<input id="departure-date" class="booking-native-field" type="date" aria-label="Departure date" tabindex="-1" required>
+<select id="adults-count" class="booking-native-field" aria-label="Number of adults" tabindex="-1">
 <option value="1" selected>1</option>
 <option value="2">2</option>
 <option value="3">3</option>
@@ -374,10 +365,7 @@
 <option value="7">7</option>
 <option value="8">8</option>
 </select>
-</div>
-<div class="flex items-center gap-2">
-<label class="font-label-sm text-label-sm text-on-surface-variant" for="children-count">Children</label>
-<select id="children-count" class="font-body-md text-body-md font-semibold bg-transparent border-0 p-0 m-0 pr-10 focus:outline-none focus:ring-0" aria-label="Select number of children">
+<select id="children-count" class="booking-native-field" aria-label="Number of children" tabindex="-1">
 <option value="0" selected>0</option>
 <option value="1">1</option>
 <option value="2">2</option>
@@ -388,9 +376,16 @@
 <option value="7">7</option>
 <option value="8">8</option>
 </select>
-</div>
-</div>
-</div>
+<select id="rooms-count" class="booking-native-field" aria-label="Number of rooms" tabindex="-1">
+<option value="1" selected>1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+</select>
 </div>
 <div class="availability-action p-1">
     <a id="check-availability-btn" href="rooms.html" class="h-full bg-on-background text-surface px-6 py-2 rounded-full font-label-lg text-label-lg uppercase tracking-widest transition-all hover:bg-primary inline-block">

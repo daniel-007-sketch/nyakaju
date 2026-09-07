@@ -34,7 +34,7 @@ const MAX_GUESTS_PER_ROOM = 2;
 function readGuestCount(params: URLSearchParams, name: "adults" | "children", fallback: number) {
   const value = Number.parseInt(params.get(name) ?? "", 10);
   const minimum = name === "adults" ? 1 : 0;
-  return Number.isInteger(value) && value >= minimum ? value : fallback;
+  return Number.isInteger(value) && value >= minimum && value <= 8 ? value : fallback;
 }
 
 function guestSummary(adults: number, children: number) {
@@ -87,11 +87,13 @@ function bookingHref(
   departure?: string | null,
   adults = 1,
   children = 0,
+  rooms = requiredRoomsFor(adults, children),
 ) {
   const params = new URLSearchParams({
     room: room.slug,
     adults: String(adults),
     children: String(children),
+    rooms: String(rooms),
   });
   if (arrival && departure) {
     params.set("arrival", arrival);
@@ -226,6 +228,409 @@ function addListener<K extends keyof WindowEventMap>(
 ) {
   target.addEventListener(eventName, listener as EventListener);
   return () => target.removeEventListener(eventName, listener as EventListener);
+}
+
+type BookingPickerOptions = {
+  rootId: string;
+  arrivalInput: HTMLInputElement;
+  departureInput: HTMLInputElement;
+  adultsInput: HTMLSelectElement;
+  childrenInput: HTMLSelectElement;
+  roomsInput: HTMLSelectElement;
+};
+
+const bookingDateFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+
+const bookingMonthFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  year: "numeric",
+});
+
+function bookingDateFromValue(value: string) {
+  const [year, month, day] = value.split("-").map(Number);
+  return new Date(year, month - 1, day, 12);
+}
+
+function bookingDateValue(date: Date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function bookingStartOfMonth(date: Date) {
+  return new Date(date.getFullYear(), date.getMonth(), 1, 12);
+}
+
+function bookingAddMonths(date: Date, amount: number) {
+  return new Date(date.getFullYear(), date.getMonth() + amount, 1, 12);
+}
+
+function bookingPlural(value: number, singular: string, plural = `${singular}s`) {
+  return `${value} ${value === 1 ? singular : plural}`;
+}
+
+function setupBookingPicker(options: BookingPickerOptions): Cleanup[] {
+  const cleanups: Cleanup[] = [];
+  const root = document.getElementById(options.rootId);
+  if (!root) return cleanups;
+
+  const dateTrigger = root.querySelector<HTMLButtonElement>("[aria-controls][id*='DateTrigger']");
+  const guestTrigger = root.querySelector<HTMLButtonElement>("[aria-controls][id*='GuestTrigger']");
+  const dateSummary = root.querySelector<HTMLElement>("[data-booking-date-summary]");
+  const guestSummaryElement = root.querySelector<HTMLElement>("[data-booking-guest-summary]");
+  const calendarPanel = root.querySelector<HTMLElement>("[data-booking-calendar-popover]");
+  const guestPanel = root.querySelector<HTMLElement>("[data-booking-guest-popover]");
+
+  if (!dateTrigger || !guestTrigger || !dateSummary || !guestSummaryElement || !calendarPanel || !guestPanel) {
+    return cleanups;
+  }
+
+  const now = new Date();
+  const today = bookingDateValue(new Date(now.getTime() - now.getTimezoneOffset() * 60_000));
+  const earliestMonth = bookingStartOfMonth(bookingDateFromValue(today));
+  let monthCursor = bookingStartOfMonth(
+    options.arrivalInput.value ? bookingDateFromValue(options.arrivalInput.value) : bookingDateFromValue(today),
+  );
+  let hoverDate = "";
+  let guestSelectionMade = !root.dataset.bookingGuestPlaceholder || root.dataset.bookingGuestSelected === "true";
+
+  const syncBodyLock = () => {
+    const hasOpenPicker = Boolean(document.querySelector(".booking-popover:not(.hidden)"));
+    document.body.classList.toggle("booking-picker-open", hasOpenPicker);
+  };
+
+  const closePanels = () => {
+    calendarPanel.classList.add("hidden");
+    guestPanel.classList.add("hidden");
+    dateTrigger.setAttribute("aria-expanded", "false");
+    guestTrigger.setAttribute("aria-expanded", "false");
+    hoverDate = "";
+    syncBodyLock();
+  };
+
+  const updateSummaries = () => {
+    const arrival = options.arrivalInput.value;
+    const departure = options.departureInput.value;
+    dateSummary.textContent = arrival
+      ? `${bookingDateFormatter.format(bookingDateFromValue(arrival))} — ${departure
+        ? bookingDateFormatter.format(bookingDateFromValue(departure))
+        : "Select check-out"}`
+      : root.dataset.bookingDatePlaceholder || "Check-in date — Check-out date";
+
+    const adults = Number.parseInt(options.adultsInput.value, 10) || 1;
+    const children = Number.parseInt(options.childrenInput.value, 10) || 0;
+    const rooms = Number.parseInt(options.roomsInput.value, 10) || requiredRoomsFor(adults, children);
+    guestSummaryElement.textContent = !guestSelectionMade && root.dataset.bookingGuestPlaceholder
+      ? root.dataset.bookingGuestPlaceholder
+      : [
+        bookingPlural(adults, "adult"),
+        bookingPlural(children, "child", "children"),
+        bookingPlural(rooms, "room"),
+      ].join(" · ");
+  };
+
+  const calendarMonthMarkup = (month: Date) => {
+    const year = month.getFullYear();
+    const monthIndex = month.getMonth();
+    const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+    const leadingBlanks = (new Date(year, monthIndex, 1).getDay() + 6) % 7;
+    const arrival = options.arrivalInput.value;
+    const departure = options.departureInput.value;
+    const previewEnd = arrival && !departure && hoverDate > arrival ? hoverDate : "";
+    const rangeEnd = departure || previewEnd;
+    const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+      .map((day) => `<span role="columnheader">${day}</span>`)
+      .join("");
+    const blanks = Array.from({ length: leadingBlanks }, () => '<span class="booking-calendar__blank" aria-hidden="true"></span>').join("");
+    const days = Array.from({ length: daysInMonth }, (_, index) => {
+      const day = index + 1;
+      const value = bookingDateValue(new Date(year, monthIndex, day, 12));
+      const isDisabled = value < today;
+      const classNames = ["booking-calendar__day"];
+      if (value === today) classNames.push("is-today");
+      if (value === arrival) classNames.push("is-selected-start");
+      if (departure && value === departure) classNames.push("is-selected-end");
+      if (previewEnd && value === previewEnd) classNames.push("is-preview-end");
+      if (rangeEnd && value > arrival && value < rangeEnd) {
+        classNames.push(departure ? "is-confirmed-range" : "is-preview-range");
+      }
+      return `<button type="button" class="${classNames.join(" ")}" data-booking-date="${value}" ${isDisabled ? "disabled" : ""} aria-label="${bookingDateFormatter.format(bookingDateFromValue(value))}" aria-selected="${value === arrival || value === departure}">${day}</button>`;
+    }).join("");
+
+    return `
+      <section class="booking-calendar__month" aria-label="${bookingMonthFormatter.format(month)}">
+        <h4 class="booking-calendar__month-title">${bookingMonthFormatter.format(month)}</h4>
+        <div class="booking-calendar__weekdays" role="row">${weekdays}</div>
+        <div class="booking-calendar__days" role="grid">${blanks}${days}</div>
+      </section>
+    `;
+  };
+
+  const renderCalendar = () => {
+    const isAtEarliestMonth = monthCursor.getTime() <= earliestMonth.getTime();
+    const isChoosingDeparture = Boolean(options.arrivalInput.value && !options.departureInput.value);
+    calendarPanel.innerHTML = `
+      <div class="booking-popover__header">
+        <h3 class="booking-popover__title">${isChoosingDeparture ? "Choose your check-out date" : "Select dates"}</h3>
+        <div class="booking-calendar__nav">
+          <button type="button" data-booking-month="previous" aria-label="Show previous month" ${isAtEarliestMonth ? "disabled" : ""}><span class="material-symbols-outlined" aria-hidden="true">chevron_left</span></button>
+          <button type="button" data-booking-month="next" aria-label="Show next month"><span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></button>
+        </div>
+        <button type="button" class="booking-popover__close" data-booking-close aria-label="Close calendar"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+      </div>
+      <div class="booking-calendar__months">
+        ${calendarMonthMarkup(monthCursor)}
+        ${calendarMonthMarkup(bookingAddMonths(monthCursor, 1))}
+      </div>
+      <p class="booking-calendar__hint">${isChoosingDeparture
+        ? "Move across the calendar to preview your stay, then choose a check-out date."
+        : "Choose a check-in date, followed by your check-out date."}</p>
+    `;
+  };
+
+  const selectBounds = (input: HTMLSelectElement, fallbackMin: number, fallbackMax: number) => {
+    const values = Array.from(input.options)
+      .map((option) => Number.parseInt(option.value, 10))
+      .filter(Number.isFinite);
+    return {
+      min: values.length ? Math.min(...values) : fallbackMin,
+      max: values.length ? Math.max(...values) : fallbackMax,
+    };
+  };
+
+  const countRowMarkup = (kind: "adults" | "children" | "rooms", label: string, input: HTMLSelectElement) => {
+    const value = Number.parseInt(input.value, 10) || (kind === "children" ? 0 : 1);
+    const fallbackMin = kind === "children" ? 0 : 1;
+    const bounds = selectBounds(input, fallbackMin, 8);
+    const minimum = kind === "rooms"
+      ? Math.max(bounds.min, requiredRoomsFor(
+        Number.parseInt(options.adultsInput.value, 10) || 1,
+        Number.parseInt(options.childrenInput.value, 10) || 0,
+      ))
+      : bounds.min;
+    const controlsDisabled = kind === "rooms" && input.disabled;
+    return `
+      <div class="booking-guests__row">
+        <span class="booking-guests__label">${label}</span>
+        <div class="booking-guests__stepper" role="group" aria-label="${label}">
+          <button type="button" data-booking-count="${kind}" data-booking-direction="decrease" aria-label="Decrease ${label.toLowerCase()}" ${controlsDisabled || value <= minimum ? "disabled" : ""}>−</button>
+          <span class="booking-guests__value" aria-live="polite">${value}</span>
+          <button type="button" data-booking-count="${kind}" data-booking-direction="increase" aria-label="Increase ${label.toLowerCase()}" ${controlsDisabled || value >= bounds.max ? "disabled" : ""}>＋</button>
+        </div>
+      </div>
+    `;
+  };
+
+  const renderGuests = () => {
+    guestPanel.innerHTML = `
+      <div class="booking-popover__header">
+        <h3 class="booking-popover__title">Select occupancy</h3>
+        <button type="button" class="booking-popover__close" data-booking-close aria-label="Close occupancy selector"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+      </div>
+      <div class="booking-guests__rows">
+        ${countRowMarkup("adults", "Adults", options.adultsInput)}
+        ${countRowMarkup("children", "Children", options.childrenInput)}
+        ${countRowMarkup("rooms", "Rooms", options.roomsInput)}
+      </div>
+      <div class="booking-guests__actions">
+        <button type="button" class="booking-guests__confirm" data-booking-guest-confirm>Confirm</button>
+      </div>
+    `;
+  };
+
+  const dispatchFieldChange = (input: HTMLInputElement | HTMLSelectElement) => {
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+  };
+
+  const setDateValue = (input: HTMLInputElement, value: string) => {
+    if (input.value === value) return;
+    input.value = value;
+    dispatchFieldChange(input);
+  };
+
+  const selectDate = (value: string) => {
+    const arrival = options.arrivalInput.value;
+    const departure = options.departureInput.value;
+    let staySelectionComplete = false;
+    if (!arrival || departure) {
+      setDateValue(options.departureInput, "");
+      setDateValue(options.arrivalInput, value);
+      hoverDate = "";
+    } else if (value <= arrival) {
+      setDateValue(options.departureInput, "");
+      setDateValue(options.arrivalInput, value);
+      hoverDate = "";
+    } else {
+      setDateValue(options.departureInput, value);
+      hoverDate = "";
+      staySelectionComplete = true;
+    }
+    updateSummaries();
+    renderCalendar();
+    if (staySelectionComplete) {
+      closePanels();
+      dateTrigger.focus();
+    }
+  };
+
+  const openCalendar = () => {
+    guestPanel.classList.add("hidden");
+    guestTrigger.setAttribute("aria-expanded", "false");
+    renderCalendar();
+    calendarPanel.classList.remove("hidden");
+    dateTrigger.setAttribute("aria-expanded", "true");
+    syncBodyLock();
+  };
+
+  const openGuests = () => {
+    calendarPanel.classList.add("hidden");
+    dateTrigger.setAttribute("aria-expanded", "false");
+    renderGuests();
+    guestPanel.classList.remove("hidden");
+    guestTrigger.setAttribute("aria-expanded", "true");
+    syncBodyLock();
+  };
+
+  const pickerClickHandler = (event: Event) => {
+    const target = event.target as HTMLElement;
+    if (target.closest("[data-booking-guest-confirm]")) {
+      guestSelectionMade = true;
+      updateSummaries();
+      closePanels();
+      guestTrigger.focus();
+      return;
+    }
+
+    if (target.closest("[data-booking-close]")) {
+      closePanels();
+      return;
+    }
+
+    const monthButton = target.closest<HTMLButtonElement>("[data-booking-month]");
+    if (monthButton && !monthButton.disabled) {
+      monthCursor = bookingAddMonths(monthCursor, monthButton.dataset.bookingMonth === "previous" ? -1 : 1);
+      renderCalendar();
+      return;
+    }
+
+    const dateButton = target.closest<HTMLButtonElement>("[data-booking-date]");
+    if (dateButton?.dataset.bookingDate && !dateButton.disabled) {
+      selectDate(dateButton.dataset.bookingDate);
+      return;
+    }
+
+    const countButton = target.closest<HTMLButtonElement>("[data-booking-count]");
+    if (!countButton || countButton.disabled) return;
+    guestSelectionMade = true;
+    const kind = countButton.dataset.bookingCount as "adults" | "children" | "rooms";
+    const input = kind === "adults"
+      ? options.adultsInput
+      : kind === "children"
+        ? options.childrenInput
+        : options.roomsInput;
+    const current = Number.parseInt(input.value, 10) || (kind === "children" ? 0 : 1);
+    const bounds = selectBounds(input, kind === "children" ? 0 : 1, 8);
+    const minimum = kind === "rooms"
+      ? Math.max(bounds.min, requiredRoomsFor(
+        Number.parseInt(options.adultsInput.value, 10) || 1,
+        Number.parseInt(options.childrenInput.value, 10) || 0,
+      ))
+      : bounds.min;
+    const next = Math.max(minimum, Math.min(bounds.max, current + (countButton.dataset.bookingDirection === "decrease" ? -1 : 1)));
+    if (next !== current) {
+      input.value = String(next);
+      dispatchFieldChange(input);
+    }
+
+    if (kind !== "rooms") {
+      const requiredRooms = requiredRoomsFor(
+        Number.parseInt(options.adultsInput.value, 10) || 1,
+        Number.parseInt(options.childrenInput.value, 10) || 0,
+      );
+      const roomBounds = selectBounds(options.roomsInput, 1, 8);
+      const currentRooms = Number.parseInt(options.roomsInput.value, 10) || 1;
+      if (currentRooms < requiredRooms && requiredRooms <= roomBounds.max) {
+        options.roomsInput.value = String(requiredRooms);
+        dispatchFieldChange(options.roomsInput);
+      }
+    }
+
+    updateSummaries();
+    renderGuests();
+  };
+
+  const hoverHandler = (event: Event) => {
+    if (!options.arrivalInput.value || options.departureInput.value) return;
+    const dateButton = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-booking-date]");
+    const value = dateButton?.dataset.bookingDate || "";
+    const nextHoverDate = value > options.arrivalInput.value ? value : "";
+    if (nextHoverDate !== hoverDate) {
+      hoverDate = nextHoverDate;
+      calendarPanel.querySelectorAll<HTMLButtonElement>("[data-booking-date]").forEach((button) => {
+        const buttonDate = button.dataset.bookingDate || "";
+        button.classList.toggle(
+          "is-preview-range",
+          Boolean(hoverDate && buttonDate > options.arrivalInput.value && buttonDate < hoverDate),
+        );
+        button.classList.toggle("is-preview-end", Boolean(hoverDate && buttonDate === hoverDate));
+      });
+    }
+  };
+
+  const clearHover = () => {
+    if (!hoverDate) return;
+    hoverDate = "";
+    calendarPanel.querySelectorAll(".is-preview-range, .is-preview-end").forEach((element) => {
+      element.classList.remove("is-preview-range", "is-preview-end");
+    });
+  };
+
+  const documentClickHandler = (event: Event) => {
+    if (!event.composedPath().includes(root)) closePanels();
+  };
+
+  const documentKeyHandler = (event: Event) => {
+    if ((event as KeyboardEvent).key === "Escape") closePanels();
+  };
+
+  const externalChangeHandler = () => {
+    updateSummaries();
+    if (!calendarPanel.classList.contains("hidden")) renderCalendar();
+    if (!guestPanel.classList.contains("hidden")) renderGuests();
+  };
+
+  cleanups.push(addListener(dateTrigger, "click", () => {
+    if (calendarPanel.classList.contains("hidden")) openCalendar();
+    else closePanels();
+  }));
+  cleanups.push(addListener(guestTrigger, "click", () => {
+    if (guestPanel.classList.contains("hidden")) openGuests();
+    else closePanels();
+  }));
+  cleanups.push(addListener(root, "click", pickerClickHandler));
+  cleanups.push(addListener(calendarPanel, "pointerover", hoverHandler));
+  cleanups.push(addListener(calendarPanel, "pointerleave", clearHover));
+  cleanups.push(addListener(document, "click", documentClickHandler));
+  cleanups.push(addListener(document, "keydown", documentKeyHandler));
+  [options.arrivalInput, options.departureInput, options.adultsInput, options.childrenInput, options.roomsInput]
+    .forEach((input) => cleanups.push(addListener(input, "change", externalChangeHandler)));
+
+  const roomOptionsObserver = new MutationObserver(externalChangeHandler);
+  roomOptionsObserver.observe(options.roomsInput, { attributes: true, childList: true, subtree: true });
+  cleanups.push(() => roomOptionsObserver.disconnect());
+  cleanups.push(() => {
+    closePanels();
+    if (!document.querySelector(".booking-popover:not(.hidden)")) document.body.classList.remove("booking-picker-open");
+  });
+
+  updateSummaries();
+  return cleanups;
 }
 
 function setupMobileNavigation(): Cleanup[] {
@@ -412,6 +817,7 @@ function setupIndexPage(): Cleanup[] {
   const departureDateInput = document.getElementById("departure-date") as HTMLInputElement | null;
   const adultsCountInput = document.getElementById("adults-count") as HTMLSelectElement | null;
   const childrenCountInput = document.getElementById("children-count") as HTMLSelectElement | null;
+  const roomsCountInput = document.getElementById("rooms-count") as HTMLSelectElement | null;
   const checkAvailabilityBtn = document.getElementById("check-availability-btn") as HTMLAnchorElement | null;
 
   if (arrivalDateInput && departureDateInput) {
@@ -472,12 +878,24 @@ function setupIndexPage(): Cleanup[] {
           departure: departureDateInput.value,
           adults: adultsCountInput?.value || "1",
           children: childrenCountInput?.value || "0",
+          rooms: roomsCountInput?.value || "1",
         });
         window.location.href = `/rooms?${params.toString()}`;
       };
 
       cleanups.push(addListener(checkAvailabilityBtn, "click", clickHandler));
     }
+  }
+
+  if (arrivalDateInput && departureDateInput && adultsCountInput && childrenCountInput && roomsCountInput) {
+    cleanups.push(...setupBookingPicker({
+      rootId: "homeBookingPicker",
+      arrivalInput: arrivalDateInput,
+      departureInput: departureDateInput,
+      adultsInput: adultsCountInput,
+      childrenInput: childrenCountInput,
+      roomsInput: roomsCountInput,
+    }));
   }
 
   const header = document.getElementById("main-header");
@@ -679,7 +1097,8 @@ function setupRoomsPage(): Cleanup[] {
   const adults = readGuestCount(params, "adults", 1);
   const children = readGuestCount(params, "children", 0);
   const guestCount = adults + children;
-  const requiredRooms = requiredRoomsFor(adults, children);
+  const minimumRooms = requiredRoomsFor(adults, children);
+  const requestedRooms = Math.min(8, Math.max(minimumRooms, Number.parseInt(params.get("rooms") ?? "", 10) || minimumRooms));
   const query = arrival && departure
     ? `?${new URLSearchParams({ arrival, departure }).toString()}`
     : "";
@@ -712,7 +1131,7 @@ function setupRoomsPage(): Cleanup[] {
       const primary = images.find((image) => image.isPrimary) ?? images[0];
       const galleryImages = [primary, ...images.filter((image) => image.id !== primary.id)];
       roomGalleries.set(room.id, { images: galleryImages, index: 0 });
-      const soldOut = room.availableUnits < requiredRooms;
+      const soldOut = room.availableUnits < requestedRooms;
       return `
         <section id="${escapeHtml(room.slug)}-suite" class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center ${index ? "mt-24 border-t border-surface-variant pt-24" : ""}">
           <div class="order-2 lg:order-1 lg:col-span-5 space-y-8">
@@ -725,10 +1144,10 @@ function setupRoomsPage(): Cleanup[] {
               <span class="flex items-center gap-2"><span class="material-symbols-outlined">bed</span>${room.beds} Bed${room.beds === 1 ? "" : "s"}</span>
               <span class="flex items-center gap-2"><span class="material-symbols-outlined">bathtub</span>${room.bathrooms} Bathroom${room.bathrooms === 1 ? "" : "s"}</span>
             </div>
-            <p class="font-label-lg ${soldOut ? "text-error" : "text-green-700"}">${soldOut ? `Only ${room.availableUnits} room${room.availableUnits === 1 ? " is" : "s are"} available; your party needs ${requiredRooms}` : `${room.availableUnits} of ${room.totalUnits} available`}</p>
+            <p class="font-label-lg ${soldOut ? "text-error" : "text-green-700"}">${soldOut ? `Only ${room.availableUnits} room${room.availableUnits === 1 ? " is" : "s are"} available; you selected ${requestedRooms}` : `${room.availableUnits} of ${room.totalUnits} available`}</p>
             ${soldOut
               ? '<span class="inline-flex rounded-full px-5 py-3 bg-surface-container text-on-surface-variant">Not enough rooms for this party</span>'
-              : `<a href="${bookingHref(room, arrival, departure, adults, children)}" class="group font-label-sm text-label-sm uppercase tracking-[0.16em] text-on-primary bg-black rounded-full px-5 py-3 hover:bg-primary transition-all flex items-center w-fit">Book ${requiredRooms > 1 ? `${requiredRooms} rooms` : "room"}</a>`}
+              : `<a href="${bookingHref(room, arrival, departure, adults, children, requestedRooms)}" class="group font-label-sm text-label-sm uppercase tracking-[0.16em] text-on-primary bg-black rounded-full px-5 py-3 hover:bg-primary transition-all flex items-center w-fit">Book ${requestedRooms > 1 ? `${requestedRooms} rooms` : "room"}</a>`}
           </div>
           <div class="order-1 lg:order-2 lg:col-span-7" data-room-gallery="${room.id}">
             <div class="relative h-[320px] sm:h-[460px] lg:h-[560px] w-full overflow-hidden rounded-xl bg-surface-container shadow-sm">
@@ -757,12 +1176,13 @@ function setupRoomsPage(): Cleanup[] {
         ${guestCount > MAX_GUESTS_PER_ROOM ? `
           <div class="mt-6 rounded-xl border border-primary/30 bg-primary-container p-5 text-left text-on-primary-container" role="status">
             <p class="font-semibold">Each room supports a maximum of two people.</p>
-            <p class="mt-1">Your party of ${guestCount} requires at least ${requiredRooms} rooms. Would you like to add ${requiredRooms - 1 === 1 ? "an extra room" : `${requiredRooms - 1} extra rooms`} for the other adults or children? Choose a room below and the minimum number of rooms will be selected automatically.</p>
+            <p class="mt-1">Your party of ${guestCount} requires at least ${minimumRooms} rooms. You selected ${requestedRooms}; this selection will carry into booking.</p>
           </div>
         ` : ""}
       </section>
       ${roomSections || '<p class="text-center text-on-surface-variant">No active rooms are available.</p>'}
     `;
+
   }).catch((error) => {
     if ((error as Error).name === "AbortError") return;
     container.innerHTML = `
@@ -833,6 +1253,10 @@ function setupCompleteBookingPage(): Cleanup[] {
   let adults = readGuestCount(searchParams, "adults", 1);
   let children = readGuestCount(searchParams, "children", 0);
   let minimumRoomCount = requiredRoomsFor(adults, children);
+  let preferredRoomCount = Math.max(
+    minimumRoomCount,
+    Number.parseInt(searchParams.get("rooms") ?? "", 10) || minimumRoomCount,
+  );
   let latestAvailableUnits: number | null = null;
   let isCheckingAvailability = false;
   adultsCountInput.value = String(adults);
@@ -900,7 +1324,10 @@ function setupCompleteBookingPage(): Cleanup[] {
 
   const setRoomCountOptions = (availableUnits: number) => {
     latestAvailableUnits = availableUnits;
-    const previousValue = Number.parseInt(roomCountInput.value, 10) || minimumRoomCount;
+    const previousValue = Math.max(
+      preferredRoomCount,
+      Number.parseInt(roomCountInput.value, 10) || minimumRoomCount,
+    );
     const maximum = Math.max(0, availableUnits);
     const hasEnoughRooms = maximum >= minimumRoomCount;
     roomCountInput.innerHTML = hasEnoughRooms
@@ -910,7 +1337,12 @@ function setupCompleteBookingPage(): Cleanup[] {
       }).join("")
       : '<option value="">Not enough rooms available</option>';
     roomCountInput.disabled = !hasEnoughRooms;
-    if (hasEnoughRooms) roomCountInput.value = String(Math.max(minimumRoomCount, Math.min(previousValue, maximum)));
+    if (hasEnoughRooms) {
+      roomCountInput.value = String(Math.max(minimumRoomCount, Math.min(previousValue, maximum)));
+      preferredRoomCount = Number.parseInt(roomCountInput.value, 10);
+      searchParams.set("rooms", roomCountInput.value);
+      window.history.replaceState(null, "", `${window.location.pathname}?${searchParams.toString()}`);
+    }
     roomCountHelp.textContent = hasEnoughRooms
       ? `${maximum} room${maximum === 1 ? "" : "s"} available for these dates. Your party requires at least ${minimumRoomCount}.`
       : `Only ${maximum} room${maximum === 1 ? " is" : "s are"} available, but your party requires at least ${minimumRoomCount}.`;
@@ -937,7 +1369,7 @@ function setupCompleteBookingPage(): Cleanup[] {
     window.history.replaceState(null, "", `${window.location.pathname}?${searchParams.toString()}`);
 
     if (latestAvailableUnits !== null) {
-      roomCountInput.value = String(minimumRoomCount);
+      preferredRoomCount = Math.max(minimumRoomCount, Number.parseInt(roomCountInput.value, 10) || minimumRoomCount);
       setRoomCountOptions(latestAvailableUnits);
     } else {
       syncStayDates();
@@ -988,16 +1420,31 @@ function setupCompleteBookingPage(): Cleanup[] {
     void refreshAvailability();
   };
 
+  const syncRoomCount = () => {
+    preferredRoomCount = Number.parseInt(roomCountInput.value, 10) || minimumRoomCount;
+    searchParams.set("rooms", String(preferredRoomCount));
+    window.history.replaceState(null, "", `${window.location.pathname}?${searchParams.toString()}`);
+    syncStayDates();
+  };
+
   cleanups.push(addListener(arrivalDateInput, "input", syncStayDates));
   cleanups.push(addListener(arrivalDateInput, "change", syncAndRefresh));
   cleanups.push(addListener(departureDateInput, "input", syncStayDates));
   cleanups.push(addListener(departureDateInput, "change", syncAndRefresh));
   cleanups.push(addListener(adultsCountInput, "change", syncGuestDetails));
   cleanups.push(addListener(childrenCountInput, "change", syncGuestDetails));
-  cleanups.push(addListener(roomCountInput, "change", syncStayDates));
+  cleanups.push(addListener(roomCountInput, "change", syncRoomCount));
   cleanups.push(() => availabilityController?.abort());
   syncGuestDetails();
   syncStayDates();
+  cleanups.push(...setupBookingPicker({
+    rootId: "bookingFormPicker",
+    arrivalInput: arrivalDateInput,
+    departureInput: departureDateInput,
+    adultsInput: adultsCountInput,
+    childrenInput: childrenCountInput,
+    roomsInput: roomCountInput,
+  }));
 
   const roomQuery = requestedArrival && requestedDeparture
     ? `?${new URLSearchParams({

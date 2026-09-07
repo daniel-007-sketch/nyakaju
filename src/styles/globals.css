@@ -576,7 +576,9 @@ body {
   }
 
   #hero-bar {
+    left: 1rem;
     overflow: visible;
+    transform: none;
   }
 
   #hero-bar .booking-picker {

@@ -542,6 +542,7 @@ function setupAboutPage(): Cleanup[] {
 function setupGalleryPage(): Cleanup[] {
   const cleanups: Cleanup[] = [];
   const header = document.getElementById("main-nav");
+  const carousel = document.getElementById("galleryCarousel");
 
   if (header) {
     const scrollHandler = () => {
@@ -556,6 +557,54 @@ function setupGalleryPage(): Cleanup[] {
 
     scrollHandler();
     cleanups.push(addListener(window, "scroll", scrollHandler));
+  }
+
+  if (carousel) {
+    const image = carousel.querySelector<HTMLImageElement>("[data-gallery-image]");
+    const counter = carousel.querySelector<HTMLElement>("[data-gallery-counter]");
+    const slides = [
+      { alt: "A serene wide-angle shot of a luxury resort infinity pool seamlessly blending into a calm, glassy lake at dawn.", number: 1 },
+      { alt: "A modern resort suite with natural wood accents and warm morning light.", number: 2 },
+      { alt: "The resort's main architectural structure glowing warmly at twilight.", number: 3 },
+      { alt: "An elegant outdoor dining table for two overlooking a misty valley.", number: 4 },
+      { alt: "Natural stone, polished concrete, and warm timber in a resort architectural detail.", number: 5 },
+      { alt: "A tranquil spa treatment room with soft light and a view of a Zen garden.", number: 6 },
+      { alt: "A secluded stepping-stone path winding through lush tropical gardens.", number: 7 },
+      { alt: "A freestanding stone bathtub overlooking a private resort courtyard.", number: 8 },
+      { alt: "The landscape surrounding the resort glowing at golden hour.", number: 9 },
+    ];
+    let activeIndex = 0;
+
+    const showSlide = (nextIndex: number) => {
+      activeIndex = (nextIndex + slides.length) % slides.length;
+      const slide = slides[activeIndex];
+      if (!image) return;
+
+      image.src = `/media/gallery/gallery_${slide.number}-768.webp`;
+      image.srcset = [768, 1280, 1920]
+        .map((width) => `/media/gallery/gallery_${slide.number}-${width}.webp ${width}w`)
+        .join(", ");
+      image.alt = slide.alt;
+      if (counter) {
+        counter.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+      }
+    };
+
+    const clickHandler = (event: Event) => {
+      const button = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-gallery-action]");
+      if (!button || !carousel.contains(button)) return;
+      showSlide(activeIndex + (button.dataset.galleryAction === "previous" ? -1 : 1));
+    };
+
+    const keyHandler = (event: Event) => {
+      const keyboardEvent = event as KeyboardEvent;
+      if (keyboardEvent.key !== "ArrowLeft" && keyboardEvent.key !== "ArrowRight") return;
+      keyboardEvent.preventDefault();
+      showSlide(activeIndex + (keyboardEvent.key === "ArrowLeft" ? -1 : 1));
+    };
+
+    cleanups.push(addListener(carousel, "click", clickHandler));
+    cleanups.push(addListener(carousel, "keydown", keyHandler));
   }
 
   return cleanups;

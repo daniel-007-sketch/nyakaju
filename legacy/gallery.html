@@ -134,63 +134,21 @@
 <h1 class="font-display-xl text-display-lg-mobile md:text-display-xl text-on-surface mb-6 font-bold tracking-tight">The Gallery</h1>
 <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">A visual journey through the serene sanctuaries, architectural marvels, and breathtaking landscapes of The Nyakaju.</p>
 </section>
-<!-- Gallery Grid Section -->
+<!-- Gallery Carousel Section -->
 <section class="pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter gap-y-16">
-<!-- Gallery Item 1 -->
-<div class="group flex flex-col gap-4">
-<div class="aspect-[3/4] w-full overflow-hidden dome-image bg-surface-container-low soft-shadow group-hover:scale-[1.02] group-hover:shadow-[0_0_40px_rgba(103,93,75,0.25)] transition-all duration-500 rounded-t-full">
-<img class="w-full h-full object-cover" alt="A serene wide-angle shot of a luxury resort infinity pool seamlessly blending into a calm, glassy lake at dawn. The light is soft and hazy, reflecting off the water. The aesthetic is high-end, minimalist, and peaceful, featuring natural stone decks and taupe loungers in a quiet luxury style." src="/media/gallery/gallery_1-768.webp" srcset="/media/gallery/gallery_1-768.webp 768w, /media/gallery/gallery_1-1280.webp 1280w, /media/gallery/gallery_1-1920.webp 1920w" sizes="(min-width: 768px) 33vw, 100vw" width="1920" height="1280" fetchpriority="high" decoding="async">
+<div id="galleryCarousel" class="mx-auto grid w-full max-w-3xl grid-cols-[3rem_minmax(0,1fr)_3rem] items-center gap-3 md:grid-cols-[4rem_minmax(0,1fr)_4rem] md:gap-8" role="region" aria-roledescription="carousel" aria-label="The Nyakaju gallery" tabindex="0">
+<button type="button" data-gallery-action="previous" class="flex h-12 w-12 items-center justify-center justify-self-end rounded-full border border-primary/30 bg-surface-container-lowest text-primary shadow-sm transition-all duration-300 hover:border-primary hover:bg-primary hover:text-on-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-4 md:h-16 md:w-16" aria-controls="galleryImage" aria-label="Previous gallery image">
+<span class="material-symbols-outlined text-[28px] md:text-[34px]" aria-hidden="true">arrow_back</span>
+</button>
+<figure class="min-w-0 text-center">
+<div class="aspect-[3/4] w-full overflow-hidden rounded-t-full bg-surface-container-low shadow-[0_24px_70px_rgba(47,49,49,0.16)] md:aspect-[4/5]">
+<img id="galleryImage" data-gallery-image class="h-full w-full object-cover transition-opacity duration-300" alt="A serene wide-angle shot of a luxury resort infinity pool seamlessly blending into a calm, glassy lake at dawn." src="/media/gallery/gallery_1-768.webp" srcset="/media/gallery/gallery_1-768.webp 768w, /media/gallery/gallery_1-1280.webp 1280w, /media/gallery/gallery_1-1920.webp 1920w" sizes="(min-width: 1024px) 576px, (min-width: 768px) 65vw, calc(100vw - 136px)" width="1920" height="1280" fetchpriority="high" decoding="async">
 </div>
-</div>
-<!-- Gallery Item 2 -->
-<div class="group flex flex-col gap-4 lg:mt-12">
-<div class="aspect-[3/4] w-full overflow-hidden dome-image bg-surface-container-low soft-shadow group-hover:scale-[1.02] group-hover:shadow-[0_0_40px_rgba(103,93,75,0.25)] transition-all duration-500 rounded-t-full">
-<img class="w-full h-full object-cover" alt="A detailed close-up of a modern, minimalist resort suite interior. The room features textured linen bedding, natural wood accents, and large floor-to-ceiling windows letting in warm, diffused morning light. The color palette is earthy and subdued, using whites, creams, and primary-container taupe tones for a serene atmosphere." src="/media/gallery/gallery_2-768.webp" srcset="/media/gallery/gallery_2-768.webp 768w, /media/gallery/gallery_2-1280.webp 1280w, /media/gallery/gallery_2-1920.webp 1920w" sizes="(min-width: 768px) 33vw, 100vw" width="1920" height="1280" loading="lazy" decoding="async">
-</div>
-</div>
-<!-- Gallery Item 3 -->
-<div class="group flex flex-col gap-4">
-<div class="aspect-[3/4] w-full overflow-hidden dome-image bg-surface-container-low soft-shadow group-hover:scale-[1.02] group-hover:shadow-[0_0_40px_rgba(103,93,75,0.25)] transition-all duration-500 rounded-t-full">
-<img class="w-full h-full object-cover" alt="An expansive view of the luxury resort's main architectural structure at twilight. The building features clean lines, expansive glass walls, and warm internal lighting glowing against a deep, twilight sky. The surrounding landscape is manicured and lush, emphasizing an exclusive, secluded sanctuary vibe." src="/media/gallery/gallery_3-768.webp" srcset="/media/gallery/gallery_3-768.webp 768w, /media/gallery/gallery_3-1280.webp 1280w, /media/gallery/gallery_3-1920.webp 1920w" sizes="(min-width: 768px) 33vw, 100vw" width="1920" height="1280" loading="lazy" decoding="async">
-</div>
-</div>
-<!-- Gallery Item 4 -->
-<div class="group flex flex-col gap-4">
-<div class="aspect-[3/4] w-full overflow-hidden dome-image bg-surface-container-low soft-shadow group-hover:scale-[1.02] group-hover:shadow-[0_0_40px_rgba(103,93,75,0.25)] transition-all duration-500 rounded-t-full">
-<img class="w-full h-full object-cover" alt="A serene outdoor dining setting at a luxury resort. An elegant table is set for two on a private wooden deck overlooking a misty valley. The table features fine china, crystal glasses, and subtle candlelight. The mood is intimate, romantic, and grounded in natural beauty." src="/media/gallery/gallery_4-768.webp" srcset="/media/gallery/gallery_4-768.webp 768w, /media/gallery/gallery_4-1280.webp 1280w, /media/gallery/gallery_4-1920.webp 1920w" sizes="(min-width: 768px) 33vw, 100vw" width="1920" height="1280" loading="lazy" decoding="async">
-</div>
-</div>
-<!-- Gallery Item 5 -->
-<div class="group flex flex-col gap-4 lg:mt-12">
-<div class="aspect-[3/4] w-full overflow-hidden dome-image bg-surface-container-low soft-shadow group-hover:scale-[1.02] group-hover:shadow-[0_0_40px_rgba(103,93,75,0.25)] transition-all duration-500 rounded-t-full">
-<img class="w-full h-full object-cover" alt="A close-up architectural shot focusing on the tactile materiality of a luxury resort wall. The image highlights rough-hewn natural stone contrasting with smooth, polished concrete and warm timber slats. Sunlight casts sharp, geometric shadows, creating a sophisticated, modern minimalist texture." src="/media/gallery/gallery_5-768.webp" srcset="/media/gallery/gallery_5-768.webp 768w, /media/gallery/gallery_5-1280.webp 1280w, /media/gallery/gallery_5-1920.webp 1920w" sizes="(min-width: 768px) 33vw, 100vw" width="1920" height="1280" loading="lazy" decoding="async">
-</div>
-</div>
-<!-- Gallery Item 6 -->
-<div class="group flex flex-col gap-4">
-<div class="aspect-[3/4] w-full overflow-hidden dome-image bg-surface-container-low soft-shadow group-hover:scale-[1.02] group-hover:shadow-[0_0_40px_rgba(103,93,75,0.25)] transition-all duration-500 rounded-t-full">
-<img class="w-full h-full object-cover" alt="A tranquil spa treatment room in a high-end resort. The room is bathed in soft, indirect lighting. A minimalist massage table is draped in crisp white linens, situated next to a large window offering a framed view of a Zen garden. The atmosphere is purely relaxing and restorative." src="/media/gallery/gallery_6-768.webp" srcset="/media/gallery/gallery_6-768.webp 768w, /media/gallery/gallery_6-1280.webp 1280w, /media/gallery/gallery_6-1920.webp 1920w" sizes="(min-width: 768px) 33vw, 100vw" width="1920" height="1280" loading="lazy" decoding="async">
-</div>
-</div>
-<!-- Gallery Item 7 -->
-<div class="group flex flex-col gap-4">
-<div class="aspect-[3/4] w-full overflow-hidden dome-image bg-surface-container-low soft-shadow group-hover:scale-[1.02] group-hover:shadow-[0_0_40px_rgba(103,93,75,0.25)] transition-all duration-500 rounded-t-full">
-<img class="w-full h-full object-cover" alt="A winding, secluded pathway through lush, tropical resort gardens. The path is made of large, flat stepping stones set in manicured moss. The lighting is dappled sunlight filtering through a dense canopy of ancient trees. The scene evokes a sense of discovery and quiet luxury." src="/media/gallery/gallery_7-768.webp" srcset="/media/gallery/gallery_7-768.webp 768w, /media/gallery/gallery_7-1280.webp 1280w, /media/gallery/gallery_7-1920.webp 1920w" sizes="(min-width: 768px) 33vw, 100vw" width="1920" height="1280" loading="lazy" decoding="async">
-</div>
-</div>
-<!-- Gallery Item 8 -->
-<div class="group flex flex-col gap-4 lg:mt-12">
-<div class="aspect-[3/4] w-full overflow-hidden dome-image bg-surface-container-low soft-shadow group-hover:scale-[1.02] group-hover:shadow-[0_0_40px_rgba(103,93,75,0.25)] transition-all duration-500 rounded-t-full">
-<img class="w-full h-full object-cover" alt="A luxurious, minimalist bathroom inside a resort suite. A large, freestanding, organically shaped stone bathtub sits in the center, overlooking a private courtyard through a massive pane of glass. The fixtures are matte black, contrasting with the warm, earthy tones of the limestone walls." src="/media/gallery/gallery_8-768.webp" srcset="/media/gallery/gallery_8-768.webp 768w, /media/gallery/gallery_8-1280.webp 1280w, /media/gallery/gallery_8-1920.webp 1920w" sizes="(min-width: 768px) 33vw, 100vw" width="1920" height="1280" loading="lazy" decoding="async">
-</div>
-</div>
-<!-- Gallery Item 9 -->
-<div class="group flex flex-col gap-4">
-<div class="aspect-[3/4] w-full overflow-hidden dome-image bg-surface-container-low soft-shadow group-hover:scale-[1.02] group-hover:shadow-[0_0_40px_rgba(103,93,75,0.25)] transition-all duration-500 rounded-t-full">
-<img class="w-full h-full object-cover" alt="An expansive, cinematic landscape shot of the terrain surrounding the luxury resort at golden hour. The rolling hills or rugged coastline are bathed in warm, ethereal light. A lone, elegantly designed resting pavilion is visible in the distance, emphasizing scale and isolation." src="/media/gallery/gallery_9-768.webp" srcset="/media/gallery/gallery_9-768.webp 768w, /media/gallery/gallery_9-1280.webp 1280w, /media/gallery/gallery_9-1920.webp 1920w" sizes="(min-width: 768px) 33vw, 100vw" width="1920" height="1280" loading="lazy" decoding="async">
-</div>
-</div>
+<figcaption data-gallery-counter class="mt-6 font-label-lg text-label-lg uppercase tracking-[0.22em] text-on-surface-variant" aria-live="polite">01 / 09</figcaption>
+</figure>
+<button type="button" data-gallery-action="next" class="flex h-12 w-12 items-center justify-center justify-self-start rounded-full border border-primary/30 bg-surface-container-lowest text-primary shadow-sm transition-all duration-300 hover:border-primary hover:bg-primary hover:text-on-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-4 md:h-16 md:w-16" aria-controls="galleryImage" aria-label="Next gallery image">
+<span class="material-symbols-outlined text-[28px] md:text-[34px]" aria-hidden="true">arrow_forward</span>
+</button>
 </div>
 </section>
 <!-- Footer -->

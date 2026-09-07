@@ -341,7 +341,11 @@
 <div id="homeBookingPicker" class="booking-picker booking-picker--home" data-booking-date-placeholder="Arrival - Departure" data-booking-guest-placeholder="Adults | Children | Rooms">
 <div class="booking-picker__triggers">
 <button id="homeDateTrigger" class="booking-picker__trigger" type="button" aria-expanded="false" aria-controls="homeCalendarPopover">
-<span class="material-symbols-outlined booking-picker__trigger-icon" aria-hidden="true">calendar_month</span>
+<span class="booking-picker__trigger-icon booking-picker__calendar-icon" aria-hidden="true">
+<svg viewBox="0 0 24 24" focusable="false">
+<path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 16H5V9h14v11ZM5 7V6h14v1H5Z"></path>
+</svg>
+</span>
 <span class="booking-picker__trigger-copy"><span class="booking-picker__eyebrow">Select dates</span><span class="booking-picker__summary" data-booking-date-summary>Arrival - Departure</span></span>
 <span class="material-symbols-outlined booking-picker__chevron" aria-hidden="true">expand_more</span>
 </button>

@@ -178,6 +178,13 @@ body {
   font-size: 1.65rem;
 }
 
+.booking-picker__calendar-icon svg {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: currentcolor;
+}
+
 .booking-picker__trigger-copy {
   min-width: 0;
 }
@@ -540,6 +547,10 @@ body {
     font-size: 0.78rem;
   }
 
+  #homeDateTrigger .booking-picker__calendar-icon {
+    transform: translateY(0.55rem);
+  }
+
   .booking-popover,
   .booking-picker--home .booking-popover {
     position: fixed;
@@ -578,6 +589,7 @@ body {
   #hero-bar {
     left: 1rem;
     overflow: visible;
+    translate: none;
     transform: none;
   }
 

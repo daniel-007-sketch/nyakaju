@@ -385,7 +385,6 @@ function setupBookingPicker(options: BookingPickerOptions): Cleanup[] {
       </div>
       <div class="booking-calendar__months">
         ${calendarMonthMarkup(monthCursor)}
-        ${calendarMonthMarkup(bookingAddMonths(monthCursor, 1))}
       </div>
       <p class="booking-calendar__hint">${isChoosingDeparture
         ? "Move across the calendar to preview your stay, then choose a check-out date."

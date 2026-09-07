@@ -136,7 +136,7 @@
 
 .brandRow {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   margin-top: 72px;
   border-top: 1px solid rgba(255, 255, 255, 0.25);
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
@@ -144,38 +144,36 @@
 
 .brand {
   display: flex;
-  min-height: 116px;
+  min-height: 138px;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 24px;
-  color: #fff;
+  padding: 22px 28px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #111;
   text-align: center;
   text-transform: uppercase;
 }
 
 .brand + .brand {
-  border-left: 1px solid rgba(255, 255, 255, 0.25);
+  border-left: 1px solid rgba(0, 0, 0, 0.14);
 }
 
-.brand span {
-  font-size: clamp(1.05rem, 2vw, 1.5rem);
-  font-weight: 500;
-  letter-spacing: 0.14em;
+.brand img {
+  display: block;
+  width: 100%;
+  height: 88px;
+  object-fit: contain;
 }
 
-.brand small {
-  margin-top: 5px;
-  color: rgba(255, 255, 255, 0.68);
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.34em;
+.wildlifeLogo,
+.ugConnectLogo {
+  max-width: 260px;
 }
 
-.primaryBrand img {
-  width: min(100%, 205px);
-  height: auto;
-  filter: brightness(0) invert(1);
+.tomosiFoundationLogo,
+.ageSafarisLogo {
+  max-width: 145px;
 }
 
 .copyrightBar {
@@ -226,17 +224,25 @@
   }
 
   .brandRow {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     margin-top: 52px;
   }
 
   .brand {
-    min-height: 94px;
+    min-height: 126px;
+    padding: 18px;
   }
 
-  .brand + .brand {
-    border-top: 1px solid rgba(255, 255, 255, 0.25);
+  .brand:nth-child(n + 3) {
+    border-top: 1px solid rgba(0, 0, 0, 0.14);
+  }
+
+  .brand:nth-child(odd) {
     border-left: 0;
+  }
+
+  .brand img {
+    height: 82px;
   }
 
   .copyrightBar {

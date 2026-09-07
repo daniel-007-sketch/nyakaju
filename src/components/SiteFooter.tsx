@@ -59,22 +59,46 @@ export function SiteFooter() {
             </section>
           </div>
 
-          <div className={styles.brandRow} aria-label="Nyakaju brands and location">
-            <div className={`${styles.brand} ${styles.primaryBrand}`}>
+          <div className={styles.brandRow} aria-label="Our partners">
+            <div className={styles.brand}>
               <Image
-                src="/remote-images/AB6AXuCVKM6L1uOBsBdOrbb4.png"
-                alt="The Nyakaju"
-                width={251}
-                height={58}
+                className={styles.wildlifeLogo}
+                src="/partners/wildlife-ctc.png"
+                alt="wildlife.ug by CTC Conservation Center"
+                width={1499}
+                height={399}
+                sizes="(max-width: 767px) calc(50vw - 38px), 260px"
               />
             </div>
             <div className={styles.brand}>
-              <span>Tomosi</span>
-              <small>Farm</small>
+              <Image
+                className={styles.ugConnectLogo}
+                src="/partners/ug-connect.webp"
+                alt="UG Connect"
+                width={2048}
+                height={560}
+                sizes="(max-width: 767px) calc(50vw - 38px), 260px"
+              />
             </div>
             <div className={styles.brand}>
-              <span>Rwakitura</span>
-              <small>Uganda</small>
+              <Image
+                className={styles.tomosiFoundationLogo}
+                src="/partners/tomosi-foundation.png"
+                alt="The Tomosi Foundation"
+                width={201}
+                height={206}
+                sizes="(max-width: 767px) calc(50vw - 38px), 145px"
+              />
+            </div>
+            <div className={styles.brand}>
+              <Image
+                className={styles.ageSafarisLogo}
+                src="/partners/age-safaris.png"
+                alt="Age Safaris"
+                width={165}
+                height={120}
+                sizes="(max-width: 767px) calc(50vw - 38px), 145px"
+              />
             </div>
           </div>
         </div>

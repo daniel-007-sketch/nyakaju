@@ -60,7 +60,7 @@ export function SiteFooter() {
           </div>
 
           <div className={styles.brandRow} aria-label="Our partners">
-            <div className={styles.brand}>
+            <a className={styles.brand} href="https://wildlife.ug/" target="_blank" rel="noopener noreferrer">
               <Image
                 className={styles.wildlifeLogo}
                 src="/partners/wildlife-ctc.png"
@@ -69,8 +69,8 @@ export function SiteFooter() {
                 height={399}
                 sizes="(max-width: 767px) calc(50vw - 38px), 260px"
               />
-            </div>
-            <div className={styles.brand}>
+            </a>
+            <a className={styles.brand} href="https://statehouse.go.ug/tag/uganda-connect/" target="_blank" rel="noopener noreferrer">
               <Image
                 className={styles.ugConnectLogo}
                 src="/partners/ug-connect.webp"
@@ -79,8 +79,8 @@ export function SiteFooter() {
                 height={560}
                 sizes="(max-width: 767px) calc(50vw - 38px), 260px"
               />
-            </div>
-            <div className={styles.brand}>
+            </a>
+            <a className={styles.brand} href="https://tomosigroup.ug/" target="_blank" rel="noopener noreferrer">
               <Image
                 className={styles.tomosiFoundationLogo}
                 src="/partners/tomosi-foundation.png"
@@ -89,8 +89,8 @@ export function SiteFooter() {
                 height={206}
                 sizes="(max-width: 767px) calc(50vw - 38px), 145px"
               />
-            </div>
-            <div className={styles.brand}>
+            </a>
+            <a className={styles.brand} href="https://agesafaris.com/" target="_blank" rel="noopener noreferrer">
               <Image
                 className={styles.ageSafarisLogo}
                 src="/partners/age-safaris.png"
@@ -99,7 +99,7 @@ export function SiteFooter() {
                 height={120}
                 sizes="(max-width: 767px) calc(50vw - 38px), 145px"
               />
-            </div>
+            </a>
           </div>
         </div>
       </div>

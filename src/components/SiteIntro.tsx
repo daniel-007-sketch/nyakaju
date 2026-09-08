@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from "./SiteIntro.module.css";
 
-const INTRO_DURATION_MS = 2_000;
+const INTRO_DURATION_MS = 1_000;
 
 export function SiteIntro() {
   const [isVisible, setIsVisible] = useState(true);

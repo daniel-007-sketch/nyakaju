@@ -11,7 +11,7 @@
 .logo {
   width: clamp(7.5rem, 14vw, 11rem);
   height: auto;
-  animation: nyakaju-intro-pulse 1s ease-in-out infinite;
+  animation: nyakaju-intro-pulse 1s ease-in-out 1;
   will-change: transform, opacity;
 }
 

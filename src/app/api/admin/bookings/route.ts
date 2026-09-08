@@ -6,6 +6,7 @@ import {
   todayIsoDate,
 } from "@/lib/api";
 import { BOOKING_STATUSES } from "@/lib/booking-status";
+import { advanceBookingLifecycle } from "@/lib/booking-lifecycle";
 import { requireAdminSession } from "@/lib/supabase/auth";
 
 export async function POST(request: Request) {
@@ -113,6 +114,13 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
   const auth = await requireAdminSession();
   if (!auth.session) return auth.response;
+
+  try {
+    await advanceBookingLifecycle();
+  } catch (error) {
+    console.error("Booking lifecycle update failed", error);
+    return Response.json({ error: "Booking statuses could not be updated." }, { status: 500 });
+  }
 
   const url = new URL(request.url);
   const search = (url.searchParams.get("search") ?? "").trim().toLowerCase();

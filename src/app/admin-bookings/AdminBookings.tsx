@@ -157,6 +157,13 @@ export function AdminBookings() {
   }, [loadBookings, loadRooms]);
 
   useEffect(() => {
+    const interval = window.setInterval(() => {
+      void loadBookings();
+    }, 60_000);
+    return () => window.clearInterval(interval);
+  }, [loadBookings]);
+
+  useEffect(() => {
     if (deepLinkedBookingHandled.current || bookings.length === 0) return;
     deepLinkedBookingHandled.current = true;
     const bookingId = Number(new URLSearchParams(window.location.search).get("booking"));
@@ -287,7 +294,7 @@ export function AdminBookings() {
     });
   }
 
-  return <div className={styles.shell}>
+  return <div id="adminBookings" className={styles.shell}>
     <aside id="adminBookingsSidebar" className={`${styles.sidebar} ${sidebarCollapsed ? styles.sidebarCollapsed : ""}`}>
       <button className={styles.sidebarToggle} type="button" onClick={toggleSidebar} aria-controls="adminBookingsSidebar" aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"} aria-expanded={!sidebarCollapsed}>
         <span className={sidebarCollapsed ? styles.chevronRight : ""}><NavIcon type="chevron"/></span>
@@ -346,7 +353,7 @@ export function AdminBookings() {
                   <td><strong>{booking.room_types?.name ?? "Unknown room"}</strong><span>{booking.room_count} room{booking.room_count === 1 ? "" : "s"} · {booking.confirmation_code}</span></td>
                   <td><strong>{date(booking.arrival_date)} – {date(booking.departure_date)}</strong><span>{nights(booking)} night{nights(booking) === 1 ? "" : "s"}</span></td>
                   <td><strong>{money(booking.total_amount, booking.currency)}</strong><span>{money(booking.nightly_rate, booking.currency)} per night</span></td>
-                  <td><select className={styles.status} data-status={booking.status} value={booking.status} disabled={saving || getManualBookingStatusOptions(booking.status).length < 2} onChange={(event) => void updateBooking(booking, event.target.value)} aria-label={`Status for ${booking.confirmation_code}`}>{getManualBookingStatusOptions(booking.status).map((item) => <option key={item} value={item}>{item[0].toUpperCase() + item.slice(1)}</option>)}</select></td>
+                  <td><select className={`${styles.status} booking-status`} data-status={booking.status} value={booking.status} disabled={saving || getManualBookingStatusOptions(booking.status).length < 2} onChange={(event) => void updateBooking(booking, event.target.value)} aria-label={`Status for ${booking.confirmation_code}`}>{getManualBookingStatusOptions(booking.status).map((item) => <option key={item} value={item}>{item[0].toUpperCase() + item.slice(1)}</option>)}</select></td>
                   <td><strong>Booked {dateTime(booking.created_at)}</strong><span>{booking.confirmed_at ? `Confirmed ${dateTime(booking.confirmed_at)}` : "Not yet confirmed"}</span></td>
                   <td><button className={styles.viewButton} onClick={() => setSelected(booking)}>View details</button></td>
                 </tr>)}
@@ -390,7 +397,7 @@ export function AdminBookings() {
           ["Total", money(selected.total_amount, selected.currency)], ["Booked", dateTime(selected.created_at)],
           ["Confirmed", dateTime(selected.confirmed_at)],
         ].map(([label, value]) => <div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div>
-        <label className={styles.drawerField}><span>Status</span><select value={selected.status} disabled={getManualBookingStatusOptions(selected.status).length < 2} onChange={(event) => setSelected({ ...selected, status: event.target.value })}>{getManualBookingStatusOptions(selected.status).map((item) => <option key={item} value={item}>{item[0].toUpperCase() + item.slice(1)}</option>)}</select></label>
+        <label className={styles.drawerField}><span>Status</span><select className="booking-status" data-status={selected.status} value={selected.status} disabled={getManualBookingStatusOptions(selected.status).length < 2} onChange={(event) => setSelected({ ...selected, status: event.target.value })}>{getManualBookingStatusOptions(selected.status).map((item) => <option key={item} value={item}>{item[0].toUpperCase() + item.slice(1)}</option>)}</select></label>
         <label className={styles.drawerField}><span>Admin notes</span><textarea value={selected.admin_notes ?? ""} placeholder="Add internal notes about this booking" onChange={(event) => setSelected({ ...selected, admin_notes: event.target.value })}/></label>
         <button className={styles.save} disabled={saving} onClick={() => void updateBooking(selected, selected.status, selected.admin_notes ?? "")}>{saving ? "Saving…" : "Save booking changes"}</button>
       </section>

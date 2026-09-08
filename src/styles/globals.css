@@ -1121,6 +1121,12 @@ body {
   background: #fff5dc;
 }
 
+#adminBookings .booking-status[data-status="completed"] {
+  border-color: #b8d8c8;
+  background: #edf8f2;
+  color: #21613f;
+}
+
 #adminBookings .booking-status[data-status="rejected"],
 #adminBookings .booking-status[data-status="cancelled"] {
   border-color: #edc9c1;

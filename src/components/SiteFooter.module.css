@@ -138,8 +138,6 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   margin-top: 72px;
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .brand {
@@ -149,14 +147,10 @@
   justify-content: center;
   flex-direction: column;
   padding: 22px 28px;
-  background: rgba(255, 255, 255, 0.94);
-  color: #111;
+  background: transparent;
+  color: #fff;
   text-align: center;
   text-transform: uppercase;
-}
-
-.brand + .brand {
-  border-left: 1px solid rgba(0, 0, 0, 0.14);
 }
 
 .brand img {
@@ -174,6 +168,10 @@
 .tomosiFoundationLogo,
 .ageSafarisLogo {
   max-width: 145px;
+}
+
+.ageSafarisLogo {
+  mix-blend-mode: screen;
 }
 
 .copyrightBar {
@@ -231,14 +229,6 @@
   .brand {
     min-height: 126px;
     padding: 18px;
-  }
-
-  .brand:nth-child(n + 3) {
-    border-top: 1px solid rgba(0, 0, 0, 0.14);
-  }
-
-  .brand:nth-child(odd) {
-    border-left: 0;
   }
 
   .brand img {

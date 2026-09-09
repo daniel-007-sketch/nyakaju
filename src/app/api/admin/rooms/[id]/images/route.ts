@@ -56,7 +56,6 @@ export async function POST(request: Request, { params }: RouteContext) {
       failOn: "error",
       limitInputPixels: 80_000_000,
     })
-      .autoOrient()
       .resize({
         width: 1920,
         height: 1920,

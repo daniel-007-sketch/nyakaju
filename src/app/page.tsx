@@ -7,5 +7,13 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  return <LegacyRoute pageId="index" />;
+  return (
+    <>
+      <div style={{ textAlign: "center", padding: "10px" }}>
+        DEPLOYMENT TEST
+      </div>
+
+      <LegacyRoute pageId="index" />
+    </>
+  );
 }

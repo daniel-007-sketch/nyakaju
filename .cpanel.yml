@@ -1,0 +1,13 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/kaizpwij/nyakaju-repo/
+    - /bin/cp -R src $DEPLOYPATH
+    - /bin/cp -R public $DEPLOYPATH
+    - /bin/cp -R supabase $DEPLOYPATH
+    - /bin/cp package.json $DEPLOYPATH
+    - /bin/cp package-lock.json $DEPLOYPATH
+    - /bin/cp next.config.ts $DEPLOYPATH
+    - /bin/cp tsconfig.json $DEPLOYPATH
+    - /bin/cp postcss.config.mjs $DEPLOYPATH
+    - /bin/cp server.js $DEPLOYPATH

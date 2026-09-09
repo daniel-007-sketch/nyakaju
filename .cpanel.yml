@@ -1,8 +1,6 @@
 ---
 deployment:
   tasks:
-    - export PATH=/opt/alt/alt-nodejs22/root/usr/bin:$PATH
-    - cd /home/kaizpwij/nyakaju-repo
-    - npm install
-    - npm run build
+    - cd /home/kaizpwij/nyakaju-repo && /opt/alt/alt-nodejs22/root/usr/bin/npm install
+    - cd /home/kaizpwij/nyakaju-repo && PATH=/opt/alt/alt-nodejs22/root/usr/bin:$PATH /opt/alt/alt-nodejs22/root/usr/bin/npm run build
     - /usr/bin/touch /home/kaizpwij/nyakaju-repo/tmp/restart.txt

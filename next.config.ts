@@ -3,6 +3,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  experimental: {
+    cpus: 1,
+  },
   allowedDevOrigins: ["192.168.1.3", "192.168.1.4"],
   env: {
     NEXT_PUBLIC_SUPABASE_URL: process.env.SUPABASE_URL,
